@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import useNewsletterForm from '../../hooks/useNewsletterForm';
 
 const NewsletterSection = ({ variant = "fixed", onClose }) => {
@@ -37,131 +38,86 @@ const NewsletterSection = ({ variant = "fixed", onClose }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Base wrapper classes and styles - significantly reduced padding for mobile
-  const wrapperClasses = isFixed
-    ? `w-full ${isMobile ? 'py-8' : 'py-40'} flex flex-col items-center shadow-md mt-10 px-4 sm:px-8 relative overflow-hidden`
-    : "fixed bottom-0 w-full text-white py-16 shadow-xl z-50 overflow-hidden";
-
-  const wrapperStyles = {
-    position: isFixed ? 'relative' : 'fixed',
-    animation: isFloating ? 'slideUp 0.5s ease-out' : undefined
-  };
-
-  // Background div styles
-  const bgStyles = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundImage: "url('/Logo_BG.jpg')",
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    zIndex: 0
-  };
-
-  // Create a unique ID for the newsletter section
-  const sectionId = isFixed ? "fixed-newsletter" : "floating-newsletter";
-
-  // Heading and subheading text sizes adjustments for mobile
-  const headingClass = isMobile
-    ? "text-2xl mb-3 font-bold text-white" // Smaller title on mobile
-    : "text-4xl md:text-5xl mb-10 font-bold text-white";
-
-  const subtextClass = isMobile
-    ? "text-sm font-medium text-center mb-2" // Smaller subtext on mobile
-    : "text-lg md:text-xl font-semibold text-center";
-
-  // Form input padding adjustments for mobile
-  const inputClass = isMobile
-    ? "px-3 py-2 rounded-lg text-gray-900 border-2 border-white focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent w-full sm:w-auto flex-grow text-base shadow-md"
-    : "px-6 py-3 rounded-lg text-gray-900 border-2 border-white focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent w-full sm:w-auto flex-grow text-base shadow-md";
-
-  const buttonClass = isMobile
-    ? "px-3 py-2 bg-yellow-500 text-white font-bold rounded-lg hover:bg-yellow-600 transition shadow-md w-full sm:w-auto whitespace-nowrap"
-    : "px-6 py-3 bg-yellow-500 text-white font-bold rounded-lg hover:bg-yellow-600 transition shadow-md w-full sm:w-auto whitespace-nowrap";
-
   return (
-    <section
-      id={sectionId}
-      className={wrapperClasses}
-      style={wrapperStyles}
-    >
-      {/* Background */}
-      <div style={bgStyles}></div>
+    <section id="newsletter-section" className="w-full bg-blue-600 py-10 md:py-14 relative overflow-hidden">
+      {/* Background pattern - subtle dots */}
+      <div
+        className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: 'radial-gradient(white 1px, transparent 1px)',
+          backgroundSize: '20px 20px'
+        }}
+      />
 
-      {/* Centered Header */}
-      <div className="text-center mb-2 sm:mb-8 relative z-10">
-        <h2 className={headingClass}>
-           Don&apos;t Miss an AI Beat!
-        </h2>
+      {/* Founder image - positioned at the bottom left with responsive scaling */}
+      <div className="absolute bottom-0 left-0 h-auto w-1/4 sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/4 z-10">
+        <Image
+          src="/founder.png"
+          alt="Travis Fleisher, Founder"
+          width={400}
+          height={600}
+          className="h-auto w-full object-contain object-bottom"
+          priority
+        />
       </div>
 
-      {/* Content container - reduced spacing for mobile */}
-      <div className="max-w-6xl w-full flex flex-col md:flex-row items-center justify-center relative z-10 px-4 sm:px-8 lg:px-12">
-        {/* Subtext - vertically aligned with form */}
-        <div className="md:w-1/2 mb-3 md:mb-0 md:pr-6 text-white flex items-center text-center">
-          <p className={subtextClass}>
-            Sign up for more AI news, events, and resources from Sports Innovation Lab.
-          </p>
-        </div>
+      {/* Main content - centered with padding to avoid image overlap */}
+      <div className="container mx-auto px-4 md:px-8 relative z-10">
+        <div className="text-center">
+          {/* 1. Title at the top */}
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-10">
+            Get AI Tools in Your Inbox! 🚀
+          </h2>
 
-        {/* Right section - Form */}
-        <div className="md:w-1/2 w-full">
-          <form
-            className={`flex ${isMobile ? 'flex-col gap-2' : 'flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-2'}`}
-            onSubmit={handleSubscribe}
-          >
-            <input
-              type="email"
-              placeholder="Your email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className={inputClass}
-              required
-              disabled={isSubmitting}
-            />
-            <button
-              type="submit"
-              className={buttonClass}
-              style={isFloating ? { animation: 'pulse 2s infinite' } : {}}
-              disabled={isSubmitting}
+          {/* 2. Input form */}
+          <div className="max-w-xl mx-auto mb-8">
+            <form
+              className="flex flex-col sm:flex-row items-center gap-2"
+              onSubmit={handleSubscribe}
             >
-              {isSubmitting ? "Submitting..." : "Request Now"}
-            </button>
-          </form>
+              <input
+                type="email"
+                placeholder="Your email address"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="px-4 py-3 rounded-lg text-gray-900 border-2 border-white focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent w-full sm:flex-grow text-base shadow-md"
+                required
+                disabled={isSubmitting}
+              />
+              <button
+                type="submit"
+                className="px-4 py-3 bg-yellow-500 text-white font-bold rounded-lg hover:bg-yellow-600 transition shadow-md w-full sm:w-auto whitespace-nowrap"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Submitting..." : "Get Weekly Tools"}
+              </button>
+            </form>
 
-          {message && (
-            <p className={`text-sm sm:text-base mt-2 font-medium text-center sm:text-left ${isSuccess ? 'text-green-300' : 'text-white'}`}>
-              {message}
+            {message && (
+              <p className={`text-sm mt-2 font-medium text-center ${isSuccess ? 'text-green-300' : 'text-white'}`}>
+                {message}
+              </p>
+            )}
+          </div>
+
+          {/* 3. Stay ahead text */}
+          <div className="text-white mb-8">
+            <p className="text-base md:text-lg mx-auto">
+              Stay up-to-date in this rapidly evolving field with our weekly newsletter.
             </p>
-          )}
+          </div>
+
+          {/* 4. Quote at the bottom - ensures it doesn't overlap with image */}
+          <div className="max-w-xl mx-auto pl-0 sm:pl-12 md:pl-20 lg:pl-0">
+            <div className="italic text-white/90 text-sm md:text-base">
+              "AI is not a replacement for human intelligence, it's a force multiplier. Our goal is to help leaders and teams across industries use AI to unlock smarter decisions, deeper insights, and streamlined execution."
+            </div>
+            <div className="text-white/80 text-xs mt-2">
+              Travis Fleisher, Founder
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* Close button (only for floating variant) */}
-      {isFloating && onClose && (
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-6 text-white hover:text-yellow-200 transition z-20"
-          aria-label="Close newsletter"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="28"
-            height="28"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
-      )}
     </section>
   );
 };

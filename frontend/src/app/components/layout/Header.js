@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import { Inter } from 'next/font/google';
 import MobileMenu from './MobileMenu';
+import { useRouter } from 'next/navigation';
 
 // Configure font
 const inter = Inter({
@@ -15,23 +16,99 @@ const Header = ({ onMenuToggle, isMarketMap = false }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const headerRef = useRef(null);
+  const router = useRouter();
 
-  // Navigation items
+  // State for typing animation
+  const [displayText, setDisplayText] = useState('');
+  const [typingComplete, setTypingComplete] = useState(false);
+
+  // State for word-by-word animation
+  const [showAggregate, setShowAggregate] = useState(false);
+  const [showCurate, setShowCurate] = useState(false);
+  const [showSimplify, setShowSimplify] = useState(false);
+  const [showSecondLine, setShowSecondLine] = useState(false);
+
+  const fullText = "ToolCurator.ai";
+  const typingSpeed = 150; // milliseconds per character
+
+  // Typing animation effect
+  useEffect(() => {
+    let currentIndex = 0;
+    let timer;
+
+    const typeText = () => {
+      if (currentIndex <= fullText.length) {
+        setDisplayText(fullText.substring(0, currentIndex));
+        currentIndex++;
+        timer = setTimeout(typeText, typingSpeed);
+      } else {
+        setTypingComplete(true);
+
+        // Schedule the word animations after typing completes
+        setTimeout(() => setShowAggregate(true), 300);
+        setTimeout(() => setShowCurate(true), 600);
+        setTimeout(() => setShowSimplify(true), 900);
+        setTimeout(() => setShowSecondLine(true), 1200);
+      }
+    };
+
+    // Start typing animation after a short delay
+    const startDelay = setTimeout(() => {
+      typeText();
+    }, 500);
+
+    // Cleanup function
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(startDelay);
+    };
+  }, []);
+
+  // Navigation items - with added Resources link
   const navItems = [
     {
-      label: "AI Marketmap",
-      href: "/marketmap",
+      label: "Home",
+      href: "/",
       onClick: (e) => {
-        if (window.location.pathname === "/marketmap") {
-          e.preventDefault();
+        e.preventDefault();
+        router.push('/');
+      }
+    },
+    {
+      label: "Resources",
+      href: "/resources",
+      onClick: (e) => {
+        e.preventDefault();
+        router.push('/resources');
+      }
+    },
+    {
+      label: "Blog",
+      href: "#blog-section",
+      onClick: (e) => {
+        e.preventDefault();
+        const blogSection = document.getElementById('blog-section');
+        if (blogSection) {
+          blogSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          // If blog section doesn't exist on current page, navigate to the blog page
+          router.push('/#blog-section');
         }
       }
     },
     {
-      label: "AI Blog",
-      href: "https://www.twinbrain.ai/blog",
-      target: "_blank",
-      rel: "noopener noreferrer"
+      label: "Newsletter",
+      href: "#newsletter-section",
+      onClick: (e) => {
+        e.preventDefault();
+        const newsletterSection = document.getElementById('newsletter-section');
+        if (newsletterSection) {
+          newsletterSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          // If newsletter section doesn't exist on current page, navigate to home page newsletter
+          router.push('/#newsletter-section');
+        }
+      }
     }
   ];
 
@@ -53,81 +130,72 @@ const Header = ({ onMenuToggle, isMarketMap = false }) => {
     onMenuToggle?.(newMenuState);
   };
 
+  // Parse display text to apply different styles
+  const renderTitle = () => {
+    const toolPart = displayText.startsWith('Tool') ? 'Tool' : displayText;
+    const curatorPart = displayText.length > 4 ? displayText.substring(4, 11) : '';
+    const aiPart = displayText.length > 11 ? displayText.substring(11) : '';
+
+    return (
+      <>
+        <span className="font-normal text-white">{toolPart}</span>
+        {curatorPart && <span className="font-bold text-white">{curatorPart}</span>}
+        {aiPart && <span className="font-bold text-yellow-300">{aiPart}</span>}
+        {!typingComplete && <span className="inline-block w-[2px] h-[1em] bg-white ml-1 animate-[blink_1s_step-end_infinite]"></span>}
+      </>
+    );
+  };
+
+  // Animation styles for the bouncing words
+  const bounceAnimationStyle = {
+    transform: 'translateY(-20px)',
+    opacity: 0,
+    display: 'inline-block'
+  };
+
+  const visibleBounceStyle = {
+    transform: 'translateY(0)',
+    opacity: 1,
+    transition: 'transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.5s ease'
+  };
+
   return (
     <header
       ref={headerRef}
-      className="relative w-full text-white shadow-lg px-4 pt-1 pb-8 md:pt- md:pb-20"
+      className="relative w-full text-white shadow-lg px-4 pt-4 pb-16 md:pt-0 md:pb-10"
       style={{
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        background: 'linear-gradient(to right, #4facfe 0%, #6a67fe 100%)'
       }}
     >
-      {/* Background Image and Overlay */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundImage: "url('/SIL_bg.jpg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'grayscale(100%)',
-          zIndex: 0
-        }}
-      />
-
-      {/* Dark overlay to ensure text is readable */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          zIndex: 1
-        }}
-      />
-
       {/* Content container */}
       <div style={{ position: 'relative', zIndex: 3 }}>
-        {/* Top: Logo + Hamburger + Nav */}
+        {/* Top: Logo + Nav */}
         <div className="flex items-center justify-between w-full mb-6 md:mb-8">
-          {/* Left: Combined Logos */}
-          <div className="flex flex-col items-center gap-1 ml-15 mt-10">
-            <div className="flex items-center space-x-3 ml-5">
+          {/* Left: TwinBrain Logo with "POWERED BY" text */}
+          <div className="flex flex-col items-center gap-0 ml-4">
+            <a
+              href="/"
+              className="flex items-center"
+            >
               <Image
-                src="/AI_Advantage.png"
-                alt="AI Advantage Logo"
-                width={isMobile ? 40 : 100}
-                height={isMobile ? 40 : 80}
+                src="/TwinBrain_White_Transparent.png"
+                alt="TwinBrain AI Logo"
+                width={200}
+                height={200}
               />
-              <span className="text-white font-bold text-2xl mr-6">×</span>
-              <a
-                href="https://www.sportsilab.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Image
-                  src="/sil-logo.png"
-                  alt="Sports Innovation Lab Logo"
-                  width={isMobile ? 70 : 140}
-                  height={isMobile ? 25 : 60}
-                />
-              </a>
-            </div>
+            </a>
           </div>
 
-          {/* Desktop Nav - UPDATED: Changed text sizes to be much larger */}
-          <nav className="hidden sm:flex gap-6 text-xl sm:text-2xl md:text-xl text-white font-semibold mr-16">
+          {/* Desktop Nav */}
+          <nav className="hidden sm:flex gap-6 text-lg text-white font-medium mr-10">
             {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                target={item.target}
-                rel={item.rel}
+                target={item.target || "_self"}
+                rel={item.rel || ""}
                 onClick={item.onClick}
                 className="hover:underline"
               >
@@ -144,27 +212,39 @@ const Header = ({ onMenuToggle, isMarketMap = false }) => {
           </div>
         </div>
 
-        {/* Title Section */}
-        <div className="text-center mt-4 pb-8 md:pb-12">
-          <h1 className={`${inter.className} text-5xl sm:text-7xl md:text-5xl leading-tight mt-15 mb-3 tracking-tight`}>
-            {isMarketMap ? (
-              <>
-                <span className="font-normal text-white">AI </span>
-                <span className="font-bold text-white">Marketmap</span>
-              </>
-            ) : (
-              <>
-                <span className="font-normal text-white">AI </span>
-                <span className="font-bold text-white">Advantage </span>
-                <span className="font-normal text-white">Resources</span>
-              </>
-            )}
+        {/* Title Section with Typing Animation */}
+        <div className="text-center mt-12 pb-8 md:pb-12">
+          <h1 className={`${inter.className} text-5xl sm:text-7xl md:text-6xl leading-tight mb-4 tracking-tight`}>
+            {renderTitle()}
           </h1>
-          <p className={`hidden sm:block text-lg sm:text-xl md:text-2xl mt-2 font-light`}>
-            {isMarketMap
-              ? "Explore the AI tools ecosystem for sports professionals"
-              : "Discover the best AI tools for sports professionals"
-            }
+
+          {/* Animated subtitle with bouncing words */}
+          <p className="text-lg sm:text-xl md:text-2xl mt-4 font-light text-white h-8">
+            We {' '}
+            <span style={{
+              ...bounceAnimationStyle,
+              ...(showAggregate ? visibleBounceStyle : {})
+            }}>
+              aggregate,
+            </span>{' '}
+            <span style={{
+              ...bounceAnimationStyle,
+              ...(showCurate ? visibleBounceStyle : {})
+            }}>
+              curate,
+            </span>{' '}
+            <span style={{
+              ...bounceAnimationStyle,
+              ...(showSimplify ? visibleBounceStyle : {})
+            }}>
+              and simplify
+            </span>{' '}
+            AI tool discovery
+          </p>
+
+          {/* Second line with fade in */}
+          <p className={`text-base sm:text-lg mt-2 font-light text-white transition-opacity duration-1000 ${showSecondLine ? 'opacity-90' : 'opacity-0'}`}>
+            Spend your time building, not searching
           </p>
         </div>
       </div>

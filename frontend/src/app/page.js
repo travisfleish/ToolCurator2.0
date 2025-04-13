@@ -11,7 +11,6 @@ import SponsorCarousel from './components/marketing/SponsorCarousel';
 import NewsletterSection from './components/marketing/NewsletterSection';
 import BlogSection from './components/marketing/BlogSection';
 import ToggleButtons from './components/ui/ToggleButtons';
-import CategoryFilters from './components/ui/CategoryFilters';
 import ToolGrid from './components/tools/ToolGrid';
 import ScrollAnimation from './components/ui/ScrollAnimation';
 
@@ -101,18 +100,6 @@ export default function Home() {
           isMobile={isMobile}
         />
       </ScrollAnimation>
-
-      {/* Category Filters for Enterprise View */}
-      {selectedFilter === 'enterprise' && (
-        <ScrollAnimation animation="fade-up" delay={200}>
-          <CategoryFilters
-            selectedFilter={selectedFilter}
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-            isMobile={isMobile}
-          />
-        </ScrollAnimation>
-      )}
 
       {/* Loading State */}
       {loading && (

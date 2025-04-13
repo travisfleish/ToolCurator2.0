@@ -25,13 +25,11 @@ export const useToolFiltering = () => {
       // Build the endpoint URL based on current selections
       let endpoint = `/api/tools?type=${filter}`;
 
-      // Handle special category IDs for all tools in a group
-      if (category === 'sports_all') {
-        endpoint += '&group=sports';
+      // For enterprise view, always get all AI tools
+      if (filter === 'enterprise') {
+        endpoint += '&group=ai'; // Always fetch all AI tools for enterprise view
       }
-      else if (category === 'ai_all') {
-        endpoint += '&group=ai';
-      }
+      // For personal view, keep the original category filtering logic
       else if (category && category !== '') {
         endpoint += `&sector=${encodeURIComponent(category)}`;
       }
@@ -66,47 +64,18 @@ export const useToolFiltering = () => {
     setLoading(true);
     setSelectedFilter(filter);
 
-    // Reset or set appropriate category
-    const newCategory = filter === 'personal' ? '' : 'sports_all';
-    setSelectedCategory(newCategory);
+    // Reset category for both personal and enterprise
+    setSelectedCategory('');
 
-    // Fetch with new filter and category
-    fetchData(filter, newCategory);
+    // Fetch with new filter
+    fetchData(filter, '');
   };
 
-  // Handle category selection change
+  // Handle category selection change - simplified since we're not using CategoryFilters anymore
   const handleCategoryChange = (category) => {
     setLoading(true);
-
-    try {
-      console.log('Category changed to:', category);
-
-      // Determine the current group (sports or AI)
-      const currentGroup = category === 'sports_all' ||
-        CATEGORY_GROUPS.SPORTS.some(c => c.id === category) ? 'sports' : 'ai';
-
-      // If switching to 'all' within the same group, set to the all category
-      let newCategory;
-      if (category === 'sports_all' || category === 'ai_all') {
-        newCategory = category;
-      } else {
-        // Check if the category exists in the current group
-        const isValidCategory = currentGroup === 'sports'
-          ? CATEGORY_GROUPS.SPORTS.some(c => c.id === category)
-          : CATEGORY_GROUPS.AI.some(c => c.id === category);
-
-        // If valid category, set it. Otherwise, set to the corresponding 'all' category
-        newCategory = isValidCategory ? category : (currentGroup === 'sports' ? 'sports_all' : 'ai_all');
-      }
-
-      setSelectedCategory(newCategory);
-
-      // Fetch with new category
-      fetchData(selectedFilter, newCategory);
-    } catch (err) {
-      console.error('Error changing category:', err);
-      setLoading(false);
-    }
+    setSelectedCategory(category);
+    fetchData(selectedFilter, category);
   };
 
   return {

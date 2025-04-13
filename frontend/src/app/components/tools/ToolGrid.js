@@ -6,127 +6,23 @@ import EnterpriseToolCard from './EnterpriseToolCard';
 import useScrollAnimation from '../../hooks/useScrollAnimation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-// EnterpriseToolCarousel component for mobile
-const EnterpriseToolCarousel = ({ tools }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const carouselRef = useRef(null);
+// Define the AI enterprise categories
+const ENTERPRISE_AI_CATEGORIES = [
+  "Agent Builders",
+  "LLM Frameworks & Orchestration",
+  "Model Hubs & Customization",
+  "AI Coding & App Platforms",
+  "Embeddings & Vector Search",
+  "Enterprise Search & QA"
+];
 
-  // Handle carousel navigation
-  const nextSlide = () => {
-    if (tools.length <= 1) return;
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % tools.length);
-  };
-
-  const prevSlide = () => {
-    if (tools.length <= 1) return;
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + tools.length) % tools.length);
-  };
-
-  // Touch controls for swipe gesture
-  const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
-
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchMove = (e) => {
-    touchEndX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = () => {
-    const diff = touchStartX.current - touchEndX.current;
-    const threshold = 50; // Minimum swipe distance
-
-    if (diff > threshold) {
-      // Swipe left, go to next
-      nextSlide();
-    } else if (diff < -threshold) {
-      // Swipe right, go to previous
-      prevSlide();
-    }
-  };
-
-  return (
-    <div className="w-full relative">
-      {/* Navigation arrows - only show if multiple tools */}
-      {tools.length > 1 && (
-        <>
-          <button
-            onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/30 p-2 rounded-full text-blue-900 hover:bg-white/50 transition shadow-md"
-            aria-label="Previous tool"
-          >
-            <ChevronLeft size={24} />
-          </button>
-
-          <button
-            onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/30 p-2 rounded-full text-blue-900 hover:bg-white/50 transition shadow-md"
-            aria-label="Next tool"
-          >
-            <ChevronRight size={24} />
-          </button>
-        </>
-      )}
-
-      {/* Carousel container */}
-      <div
-        ref={carouselRef}
-        className="overflow-hidden"
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-      >
-        {/* Tool cards carousel */}
-        <div
-          className="flex transition-transform duration-300 ease-in-out"
-          style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-        >
-          {tools.map((tool, index) => (
-            <div
-              key={tool.id || index}
-              className="w-full flex-shrink-0 px-4"
-            >
-              <EnterpriseToolCard tool={tool} />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Pagination dots */}
-      {tools.length > 1 && (
-        <div className="flex justify-center mt-4 space-x-2">
-          {tools.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                currentIndex === index ? 'bg-blue-500' : 'bg-gray-300'
-              }`}
-              aria-label={`Go to tool ${index + 1}`}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* Tool counter */}
-      {tools.length > 1 && (
-        <div className="text-center text-sm text-gray-500 mt-2">
-          {currentIndex + 1} of {tools.length}
-        </div>
-      )}
-    </div>
-  );
-};
-
-// Create a better version of CategoryCard for mobile with carousel functionality and reduced image height
+// MobileCategoryCard component (unchanged from your code)
 const MobileCategoryCard = ({ category, tools }) => {
   // State for the current tool index within this category
   const [currentToolIndex, setCurrentToolIndex] = useState(0);
 
   // Filter tools that match this category
-  const categoryTools = tools.filter(tool => tool.category === category);
+  const categoryTools = tools.filter(tool => tool.category === category || tool.sector === category);
 
   // If no tools match this category, don't render anything
   if (categoryTools.length === 0) {
@@ -239,7 +135,7 @@ const MobileCategoryCard = ({ category, tools }) => {
   );
 };
 
-const ToolGrid = ({ tools, selectedFilter, selectedCategory }) => {
+const ToolGrid = ({ tools, selectedFilter }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   // Detect if we're on mobile
@@ -260,23 +156,16 @@ const ToolGrid = ({ tools, selectedFilter, selectedCategory }) => {
 
   // Log information about tools on mount and when tools change
   useEffect(() => {
-    if (isMobile) {
-      console.log(`TOOLGRID MOUNTED - Filter: ${selectedFilter}, Tools: ${tools?.length || 0}`);
+    console.log(`ToolGrid - Selected Filter: ${selectedFilter}, Tools Count: ${tools?.length || 0}`);
 
-      if (selectedFilter === 'personal') {
-        console.log('PERSONAL TOOLS:', {
-          totalCount: tools?.length || 0,
-          categories: [...new Set(tools?.map(t => t.category).filter(Boolean))]
-        });
-
-        // Check if tools match categories
-        DEMO_CATEGORIES.forEach(category => {
-          const matchCount = tools?.filter(t => t.category === category).length || 0;
-          console.log(`Category "${category}": ${matchCount} matching tools`);
-        });
-      }
+    if (selectedFilter === 'enterprise') {
+      // Log how many tools match each enterprise AI category
+      ENTERPRISE_AI_CATEGORIES.forEach(category => {
+        const matchCount = tools?.filter(t => t.sector === category).length || 0;
+        console.log(`Enterprise Category "${category}": ${matchCount} matching tools`);
+      });
     }
-  }, [tools, selectedFilter, isMobile]);
+  }, [tools, selectedFilter]);
 
   const sectionAnimation = useScrollAnimation({
     animation: 'fade-in',
@@ -298,80 +187,7 @@ const ToolGrid = ({ tools, selectedFilter, selectedCategory }) => {
     );
   }
 
-  const ToolCard = ({ tool, index }) => {
-    const animation = useScrollAnimation({
-      animation: 'fade-up',
-      delay: index * 100,
-      duration: 600,
-      threshold: 0.1,
-    });
-
-    return (
-      <div
-        ref={animation.ref}
-        style={animation.style}
-        className="mb-6 border rounded-lg shadow-lg bg-white flex flex-col items-center text-center overflow-hidden"
-      >
-        {/* Full width image with no padding */}
-        <Image
-          src={tool.screenshot_url || '/default-screenshot.png'}
-          alt={`${tool.name} Screenshot`}
-          width={400}
-          height={250}
-          className="w-full h-auto object-cover"
-        />
-
-        {/* Content section */}
-        <div className="p-4 w-full">
-          <h3 className="text-lg font-bold">{tool.name}</h3>
-          <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mt-1 mb-2">
-            {selectedFilter === 'personal'
-              ? tool.category ||
-                DEMO_CATEGORIES[index % DEMO_CATEGORIES.length]
-              : tool.sector || ''}
-          </span>
-          <p className="text-gray-600 text-center">{tool.short_description}</p>
-        </div>
-      </div>
-    );
-  };
-
-  const CategoryCardWrapper = ({ category, index }) => {
-    const animation = useScrollAnimation({
-      animation: 'fade-up',
-      delay: index * 100,
-      duration: 800,
-      threshold: 0.1,
-    });
-
-    return (
-      <div ref={animation.ref} style={animation.style}>
-        <CategoryCard
-          category={category}
-          tools={tools}
-          categoryIndex={index}
-          demoCategories={DEMO_CATEGORIES}
-        />
-      </div>
-    );
-  };
-
-  const EnterpriseCard = ({ tool, index }) => {
-    const animation = useScrollAnimation({
-      animation: 'fade-up',
-      delay: index * 100,
-      duration: 800,
-      threshold: 0.1,
-    });
-
-    return (
-      <div ref={animation.ref} style={animation.style}>
-        <EnterpriseToolCard tool={tool} />
-      </div>
-    );
-  };
-
-  // Mobile layout - DIFFERENT HANDLING FOR PERSONAL VS ENTERPRISE
+  // Mobile layout
   if (isMobile) {
     // Special handling for personal tools on mobile
     if (selectedFilter === 'personal') {
@@ -391,16 +207,21 @@ const ToolGrid = ({ tools, selectedFilter, selectedCategory }) => {
       );
     }
 
-    // Mobile Enterprise View - Use Carousel
+    // Mobile Enterprise View - Use CategoryCard for each AI category
     return (
       <section className="px-4 py-6 w-full">
-        <div className="text-center mb-4">
-          <h3 className="text-xl font-semibold text-gray-700">
-            {tools.length} {tools.length === 1 ? 'Tool' : 'Tools'} Available
-          </h3>
+        <div className="w-full">
+          {ENTERPRISE_AI_CATEGORIES.map((category, index) => {
+            const categoryTools = tools.filter(tool => tool.sector === category);
+            return (
+              <EnterpriseToolCard
+                key={category}
+                tools={categoryTools}
+                category={category}
+              />
+            );
+          })}
         </div>
-
-        <EnterpriseToolCarousel tools={tools} />
       </section>
     );
   }
@@ -415,10 +236,12 @@ const ToolGrid = ({ tools, selectedFilter, selectedCategory }) => {
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
           {DEMO_CATEGORIES.map((category, index) => (
-            <CategoryCardWrapper
+            <CategoryCard
               key={category}
               category={category}
-              index={index}
+              tools={tools}
+              categoryIndex={index}
+              demoCategories={DEMO_CATEGORIES}
             />
           ))}
         </div>
@@ -426,7 +249,7 @@ const ToolGrid = ({ tools, selectedFilter, selectedCategory }) => {
     );
   }
 
-  // Desktop - enterprise view
+  // Desktop - enterprise view - using CategoryCard-like layout with EnterpriseToolCard
   return (
     <section
       className="p-8 w-full"
@@ -434,9 +257,19 @@ const ToolGrid = ({ tools, selectedFilter, selectedCategory }) => {
       style={sectionAnimation.style}
     >
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
-        {tools.map((tool, index) => (
-          <EnterpriseCard key={tool.id || index} tool={tool} index={index} />
-        ))}
+        {ENTERPRISE_AI_CATEGORIES.map((category, index) => {
+          // Filter tools by this specific category
+          const categoryTools = tools.filter(tool => tool.sector === category);
+
+          // Return EnterpriseToolCard directly (no nested containers)
+          return (
+            <EnterpriseToolCard
+              key={category}
+              tools={categoryTools}
+              category={category}
+            />
+          );
+        })}
       </div>
     </section>
   );

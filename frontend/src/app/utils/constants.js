@@ -1,11 +1,6 @@
 // Categories for filtering enterprise tools
 export const CATEGORIES = [
   { name: "All Categories", id: "" },
-  { name: "Fan Intelligence", id: "Fan Intelligence", mobileName: "Fan Intel", group: "sports" },
-  { name: "Advertising & Media", id: "Advertising & Media", mobileName: "Ad & Media", group: "sports" },
-  { name: "Creative & Personalization", id: "Creative & Personalization", mobileName: "Creative", group: "sports" },
-  { name: "Sponsorship & Revenue", id: "Sponsorship & Revenue", mobileName: "Revenue", group: "sports" },
-  { name: "Measurement & Analytics", id: "Measurement & Analytics", mobileName: "Analytics", group: "sports" },
   { name: "Agent Builders", id: "Agent Builders", mobileName: "Agents", group: "ai" },
   { name: "LLM Frameworks & Orchestration", id: "LLM Frameworks & Orchestration", mobileName: "LLM", group: "ai" },
   { name: "Model Hubs & Customization", id: "Model Hubs & Customization", mobileName: "Models", group: "ai" },
@@ -15,14 +10,6 @@ export const CATEGORIES = [
 
 // Category groups for new dropdown UI
 export const CATEGORY_GROUPS = {
-  SPORTS: [
-    { name: "All Sports Tools", id: "sports_all", mobileName: "All Sports" },
-    { name: "Fan Intelligence", id: "Fan Intelligence", mobileName: "Fan Intel" },
-    { name: "Advertising & Media", id: "Advertising & Media", mobileName: "Ad & Media" },
-    { name: "Creative & Personalization", id: "Creative & Personalization", mobileName: "Creative" },
-    { name: "Sponsorship & Revenue", id: "Sponsorship & Revenue", mobileName: "Revenue" },
-    { name: "Measurement & Analytics", id: "Measurement & Analytics", mobileName: "Analytics" }
-  ],
   AI: [
     { name: "All AI Tools", id: "ai_all", mobileName: "All AI" },
     { name: "Agent Builders", id: "Agent Builders", mobileName: "Agents" },
@@ -93,8 +80,8 @@ export const API_ENDPOINTS = {
 
 // Social media links
 export const SOCIAL_LINKS = {
-  TWITTER: 'https://twitter.com/sportsinnovlab',
-  LINKEDIN: 'https://linkedin.com/company/sports-innovation-lab',
-  INSTAGRAM: 'https://instagram.com/sportsinnovlab',
-  YOUTUBE: 'https://youtube.com/sportsinnovationlab'
+  TWITTER: 'https://twitter.com/toolcurator',
+  LINKEDIN: 'https://linkedin.com/company/toolcurator',
+  INSTAGRAM: 'https://instagram.com/toolcurator',
+  YOUTUBE: 'https://youtube.com/toolcurator'
 };

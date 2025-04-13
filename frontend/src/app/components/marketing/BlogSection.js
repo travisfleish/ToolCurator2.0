@@ -5,6 +5,311 @@ import Image from 'next/image';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { fetchBlogPosts } from '../../../lib/blog-util';
 
+// Neural Network Background Animation
+const NeuralNetworkBackground = () => {
+  const canvasRef = useRef(null);
+  const neuronsRef = useRef([]);
+  const connectionsRef = useRef([]);
+  const animationRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+
+    // Calculate appropriate neuron count based on screen area
+    const calculateNeuronCount = (width, height) => {
+      const area = width * height;
+      // Increase base density from 80 to 120 neurons for a 1920x1080 screen (2M pixels)
+      const baseDensity = 120 / (1920 * 1080);
+      // Scale with area, with increased limits (from 40-150 to 60-200)
+      return Math.max(60, Math.min(200, Math.floor(area * baseDensity)));
+    };
+
+    // Function to update canvas dimensions and scale content
+    const updateCanvasSize = () => {
+      if (!canvas || !canvas.parentElement) return;
+
+      const parentRect = canvas.parentElement.getBoundingClientRect();
+      const previousWidth = canvas.width;
+      const previousHeight = canvas.height;
+
+      // Set to parent container size
+      canvas.width = parentRect.width;
+      canvas.height = parentRect.height;
+
+      // If we already have neurons, reposition them
+      if (neuronsRef.current.length > 0) {
+        // Scale neuron positions to maintain relative positioning
+        neuronsRef.current.forEach(neuron => {
+          neuron.x = (neuron.x / previousWidth) * canvas.width;
+          neuron.y = (neuron.y / previousHeight) * canvas.height;
+        });
+
+        // Recalculate connections based on new positions
+        updateConnections();
+      }
+    };
+
+    // Create neural network elements
+    const initializeNetwork = () => {
+      // Clear any existing elements
+      neuronsRef.current = [];
+      connectionsRef.current = [];
+
+      // Calculate neuron count based on current canvas size
+      const neuronCount = calculateNeuronCount(canvas.width, canvas.height);
+
+      // Create neurons
+      for (let i = 0; i < neuronCount; i++) {
+        neuronsRef.current.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 4 + 2,
+          connections: [],
+          pulseSpeed: Math.random() * 0.015 + 0.005,
+          pulseState: Math.random() * Math.PI * 2,
+          activationState: 0,
+          activationThreshold: 0.7,
+          activationDecay: 0.02,
+          lastFired: 0,
+          refractoryPeriod: 20 + Math.random() * 50,
+        });
+      }
+
+      updateConnections();
+
+      // Initialize random neurons to start firing
+      for (let i = 0; i < 5; i++) {
+        const randomIndex = Math.floor(Math.random() * neuronsRef.current.length);
+        neuronsRef.current[randomIndex].activationState = 1;
+      }
+    };
+
+    // Create connections between neurons
+    const updateConnections = () => {
+      // Reset connections
+      connectionsRef.current = [];
+
+      // For each neuron
+      for (let i = 0; i < neuronsRef.current.length; i++) {
+        // Find distances to all other neurons
+        const distances = [];
+        for (let j = 0; j < neuronsRef.current.length; j++) {
+          if (i !== j) {
+            const dx = neuronsRef.current[i].x - neuronsRef.current[j].x;
+            const dy = neuronsRef.current[i].y - neuronsRef.current[j].y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            distances.push({ index: j, distance });
+          }
+        }
+
+        // Sort by distance and connect to closest neurons
+        distances.sort((a, b) => a.distance - b.distance);
+        // Increase connection count range from (2-5) to (4-8)
+        const connectionCount = Math.floor(Math.random() * 5) + 4;
+
+        // Increase maximum connection distance based on canvas size (from 1/4 to 1/3)
+        const maxDistance = canvas.width / 3;
+
+        // Increase max connections per neuron from 10 to 15
+        for (let k = 0; k < Math.min(connectionCount, distances.length, 15); k++) {
+          if (distances[k].distance < maxDistance) {
+            const connection = {
+              from: i,
+              to: distances[k].index,
+              strength: Math.random() * 0.3 + 0.1,
+              signalProgress: 0,
+              signalActive: false,
+              signalSpeed: Math.random() * 0.03 + 0.01,
+              delay: Math.floor(Math.random() * 5)
+            };
+
+            connectionsRef.current.push(connection);
+            neuronsRef.current[i].connections.push(connection);
+          }
+        }
+      }
+    };
+
+    // Animation time tracker
+    let time = 0;
+
+    // Animation function
+    const animate = () => {
+      animationRef.current = requestAnimationFrame(animate);
+      time += 1;
+
+      // Fade background slightly for trail effect
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Update and draw connections
+      connectionsRef.current.forEach(connection => {
+        const neuronFrom = neuronsRef.current[connection.from];
+        const neuronTo = neuronsRef.current[connection.to];
+
+        // Draw connection line (axon)
+        ctx.beginPath();
+        ctx.moveTo(neuronFrom.x, neuronFrom.y);
+        ctx.lineTo(neuronTo.x, neuronTo.y);
+        ctx.strokeStyle = 'rgba(60, 80, 170, 0.2)';
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+
+        // Check if signal should be sent
+        if (neuronFrom.activationState > 0.7 && !connection.signalActive &&
+            (time - neuronFrom.lastFired) > connection.delay) {
+          connection.signalActive = true;
+          connection.signalProgress = 0;
+        }
+
+        // Update and draw signal if active
+        if (connection.signalActive) {
+          connection.signalProgress += connection.signalSpeed;
+
+          if (connection.signalProgress >= 1) {
+            // Signal reached destination, activate target neuron
+            connection.signalActive = false;
+            neuronTo.activationState += connection.strength;
+            if (neuronTo.activationState > 1) neuronTo.activationState = 1;
+          } else {
+            // Draw signal pulse along axon
+            const signalX = neuronFrom.x + (neuronTo.x - neuronFrom.x) * connection.signalProgress;
+            const signalY = neuronFrom.y + (neuronTo.y - neuronFrom.y) * connection.signalProgress;
+
+            // Signal pulse glow
+            const gradient = ctx.createRadialGradient(
+              signalX, signalY, 0,
+              signalX, signalY, 6
+            );
+            gradient.addColorStop(0, 'rgba(130, 180, 255, 0.9)');
+            gradient.addColorStop(1, 'rgba(130, 180, 255, 0)');
+
+            ctx.beginPath();
+            ctx.fillStyle = gradient;
+            ctx.arc(signalX, signalY, 6, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+      });
+
+      // Update and draw neurons
+      neuronsRef.current.forEach((neuron, index) => {
+        // Update pulse state
+        neuron.pulseState += neuron.pulseSpeed;
+
+        // Handle neuron activation and firing
+        if (neuron.activationState > 0) {
+          // Decay activation over time
+          neuron.activationState -= neuron.activationDecay;
+          if (neuron.activationState < 0) neuron.activationState = 0;
+
+          // Check if neuron should fire
+          if (neuron.activationState > neuron.activationThreshold &&
+              (time - neuron.lastFired) > neuron.refractoryPeriod) {
+            // Neuron fires!
+            neuron.lastFired = time;
+
+            // Create firing effect (bright flash)
+            const firingGradient = ctx.createRadialGradient(
+              neuron.x, neuron.y, 0,
+              neuron.x, neuron.y, neuron.size * 5
+            );
+            firingGradient.addColorStop(0, 'rgba(220, 240, 255, 0.8)');
+            firingGradient.addColorStop(0.5, 'rgba(120, 180, 255, 0.4)');
+            firingGradient.addColorStop(1, 'rgba(70, 120, 255, 0)');
+
+            ctx.beginPath();
+            ctx.fillStyle = firingGradient;
+            ctx.arc(neuron.x, neuron.y, neuron.size * 5, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Sometimes randomly activate another neuron
+            if (Math.random() < 0.2) {
+              const randomNeuron = neuronsRef.current[Math.floor(Math.random() * neuronsRef.current.length)];
+              randomNeuron.activationState = Math.min(randomNeuron.activationState + 0.5, 1);
+            }
+          }
+        }
+
+        // Draw neuron with pulsing effect
+        const glowSize = neuron.size * (1 + 0.5 * Math.sin(neuron.pulseState));
+        const activationColor = Math.floor(neuron.activationState * 200);
+
+        // Cell body glow
+        const gradient = ctx.createRadialGradient(
+          neuron.x, neuron.y, 0,
+          neuron.x, neuron.y, glowSize * 3
+        );
+        gradient.addColorStop(0, `rgba(${50 + activationColor}, ${100 + activationColor}, 255, ${0.1 + neuron.activationState * 0.4})`);
+        gradient.addColorStop(1, 'rgba(70, 120, 255, 0)');
+
+        ctx.beginPath();
+        ctx.fillStyle = gradient;
+        ctx.arc(neuron.x, neuron.y, glowSize * 3, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Cell body
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(${100 + activationColor}, ${150 + activationColor}, 255, ${0.3 + neuron.activationState * 0.5})`;
+        ctx.arc(neuron.x, neuron.y, glowSize, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Randomly activate neurons more frequently to maintain higher activity
+      // Changed from every 100 frames to every 60 frames
+      if (time % 60 === 0) {
+        // Activate 2 random neurons instead of just 1
+        for (let i = 0; i < 2; i++) {
+          const randomIndex = Math.floor(Math.random() * neuronsRef.current.length);
+          neuronsRef.current[randomIndex].activationState = 1;
+        }
+      }
+    };
+
+    // Use ResizeObserver for better responsiveness
+    const resizeObserver = new ResizeObserver(() => {
+      updateCanvasSize();
+    });
+
+    if (canvas.parentElement) {
+      resizeObserver.observe(canvas.parentElement);
+    }
+
+    // Initial setup
+    updateCanvasSize();
+    initializeNetwork();
+    animate();
+
+    // Cleanup
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+      if (canvas.parentElement) {
+        resizeObserver.unobserve(canvas.parentElement);
+      }
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 z-1"
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '100%',
+        height: '100%'
+      }}
+    />
+  );
+};
+
 const BlogSection = () => {
   // State management remains the same
   const [blogs, setBlogs] = useState([]);
@@ -29,6 +334,8 @@ const BlogSection = () => {
     // Cleanup
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
+  // State management for blog section
 
   // Other code and helper functions remain the same...
   useEffect(() => {
@@ -112,7 +419,8 @@ const BlogSection = () => {
   };
 
   return (
-    <section className="w-full py-20 text-white relative">
+    <section id="blog-section" className="w-full py-20 text-white relative">
+      {/* Modern black gradient background - behind everything */}
       <div
         style={{
           position: 'absolute',
@@ -120,31 +428,21 @@ const BlogSection = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundImage: "url('/SIL_bg.jpg')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          filter: 'grayscale(100%)',
+          background: 'linear-gradient(to bottom, #000000, #0a0a18, #0a1020)',
           zIndex: 0
         }}
       />
 
-      {/* Dark overlay to ensure text is readable */}
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.7)',
-          zIndex: 1
-        }}
-      />
+      {/* Neural Network Animation Background */}
+      <NeuralNetworkBackground />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Adjusted padding: less above, more below */}
         <div className={`text-center ${isMobile ? 'pt-1 pb-4' : 'pb-6 my-8'}`}>
-          <h2 className={`${isMobile ? "text-4xl font-bold" : "text-5xl"} flex items-center ${isMobile ? "justify-center" : "justify-center gap-3"}`}>
+          <h2 className={`${isMobile ? "text-4xl font-bold" : "text-5xl"} flex items-center ${isMobile ? "justify-center" : "justify-center gap-3"}`}
+              style={{
+                textShadow: '0 0 15px rgba(100, 150, 255, 0.4)'
+              }}>
               {isMobile ? (
                 <div className="flex items-center gap-2">
                   AI Blog {' '}
@@ -155,37 +453,27 @@ const BlogSection = () => {
                       alt="TwinBrain Logo"
                       width={90}
                       height={30}
-                      className="inline"
+                      className="inline hover:opacity-80 transition-opacity duration-300"
                     />
                   </a>
                 </div>
               ) : (
                 <>
-                  AI Blog - <a href="https://www.twinbrain.ai/blog" target="_blank" rel="noopener noreferrer" className="font-extrabold hover:text-blue-300 transition-colors">Neural Notes</a> by: {' '}
-                  <a href="https://www.twinbrain.ai" target="_blank" rel="noopener noreferrer">
+                  AI Blog - <a href="https://www.twinbrain.ai/blog" target="_blank" rel="noopener noreferrer" className="font-extrabold hover:text-blue-300 transition-colors duration-300">Neural Notes</a> by: {' '}
+                  <a href="https://www.twinbrain.ai" target="_blank" rel="noopener noreferrer"
+                    className="relative group">
+                    <div className="absolute inset-0 bg-blue-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500"></div>
                     <Image
                       src="/TwinBrain_White_Transparent.png"
                       alt="TwinBrain Logo"
                       width={200}
                       height={60}
-                      className="inline"
+                      className="inline relative z-10"
                     />
                   </a>
                 </>
               )}
             </h2>
-          {!isMobile && (
-            <p className="text-lg mt-6 max-w-4xl mx-auto">
-              Practical AI insights and advice in partnership with {' '}
-              <a href="https://www.sportsinnovationlab.com" target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:text-blue-400 transition-colors">
-                Sports Innovation Lab
-              </a>
-              {' '} & {' '}
-              <a href="https://www.microsoft.com" target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:text-blue-400 transition-colors">
-                Microsoft
-              </a>
-            </p>
-          )}
         </div>
 
         {loading ? (
@@ -249,20 +537,26 @@ const BlogSection = () => {
                     {blogs.map((blog, index) => (
                       <div
                         key={blog.id || Math.random().toString(36).substring(2, 9)}
-                        className="w-full flex-shrink-0 bg-gray-800 rounded-lg overflow-hidden border border-gray-700 flex flex-col"
+                        className="w-full flex-shrink-0 bg-[#0a1020]/80 backdrop-blur-md rounded-lg overflow-hidden flex flex-col transform transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(100,150,255,0.2)]"
+                        style={{
+                          background: 'linear-gradient(to bottom, rgba(18, 26, 38, 0.85), rgba(10, 16, 32, 0.9))',
+                          borderWidth: '1px',
+                          borderStyle: 'solid',
+                          borderImage: 'linear-gradient(to bottom, rgba(100, 150, 240, 0.3), rgba(70, 120, 255, 0.1)) 1'
+                        }}
                       >
                         {/* Image container */}
                         <a
                           href={blog.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="h-60 bg-gray-700 relative block overflow-hidden"
+                          className="h-60 bg-gray-900 relative block overflow-hidden"
                         >
                           {blog.imageUrl ? (
                             <img
                               src={blog.imageUrl}
                               alt={blog.title}
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                               onError={(e) => {
                                 e.target.onerror = null;
                                 e.target.style.display = 'none';
@@ -275,7 +569,7 @@ const BlogSection = () => {
                             />
                           ) : (
                             <div className="absolute inset-0 flex items-center justify-center">
-                              <div className="w-full h-full bg-gray-700 flex items-center justify-center">
+                              <div className="w-full h-full bg-gray-900 flex items-center justify-center">
                                 <span className="text-gray-500">No image</span>
                               </div>
                             </div>
@@ -304,7 +598,7 @@ const BlogSection = () => {
                             <h3 className="text-xl font-bold mb-4">{blog.title}</h3>
                           </a>
 
-                          <p className="text-gray-300 mb-6 flex-grow text-sm line-clamp-3">{blog.excerpt}</p>
+                          <p className="text-gray-300 mb-6 flex-grow text-sm line-clamp-3 leading-relaxed" style={{ lineHeight: '1.6' }}>{blog.excerpt}</p>
 
                           <div className="flex items-center justify-between mt-auto">
                             <a
@@ -360,20 +654,26 @@ const BlogSection = () => {
                 {blogs.map((blog) => (
                   <div
                     key={blog.id || Math.random().toString(36).substring(2, 9)}
-                    className="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 flex flex-col h-full"
+                    className="bg-[#0a1020]/80 backdrop-blur-md rounded-lg overflow-hidden flex flex-col h-full transform transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_25px_rgba(100,150,255,0.2)]"
+                    style={{
+                      background: 'linear-gradient(to bottom, rgba(18, 26, 38, 0.85), rgba(10, 16, 32, 0.9))',
+                      borderWidth: '1px',
+                      borderStyle: 'solid',
+                      borderImage: 'linear-gradient(to bottom, rgba(100, 150, 240, 0.3), rgba(70, 120, 255, 0.1)) 1'
+                    }}
                   >
                     {/* Much larger image area - now clickable */}
                     <a
                       href={blog.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="h-96 bg-gray-700 relative block overflow-hidden hover:opacity-90 transition-opacity"
+                      className="h-96 bg-gray-900 relative block overflow-hidden hover:opacity-90 transition-opacity"
                     >
                       {blog.imageUrl ? (
                         <img
                           src={blog.imageUrl}
                           alt={blog.title}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                           onError={(e) => {
                             e.target.onerror = null;
                             e.target.style.display = 'none';
@@ -386,7 +686,7 @@ const BlogSection = () => {
                         />
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <div className="w-full h-full bg-gray-700 flex items-center justify-center">
+                          <div className="w-full h-full bg-gray-900 flex items-center justify-center">
                             <span className="text-gray-500">No image</span>
                           </div>
                         </div>
@@ -413,16 +713,16 @@ const BlogSection = () => {
                       >
                         <h3 className="text-2xl font-bold mb-6">{blog.title}</h3>
                       </a>
-                      <p className="text-gray-300 mb-8 flex-grow text-lg leading-relaxed">{blog.excerpt}</p>
+                      <p className="text-gray-300 mb-8 flex-grow text-lg leading-relaxed" style={{ lineHeight: '1.7' }}>{blog.excerpt}</p>
 
                       <div className="flex items-center justify-between mt-auto">
                         <a
                           href={blog.url}
-                          className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors text-lg font-medium"
+                          className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-all duration-300 text-lg font-medium group"
                           target="_blank"
                           rel="noopener noreferrer"
                         >
-                          Read more <ArrowRight className="ml-2 h-6 w-6" />
+                          Read more <ArrowRight className="ml-2 h-6 w-6 transform group-hover:translate-x-1 transition-transform duration-300" />
                         </a>
 
                         {/* TwinBrain logo aligned with Read more - ENLARGED */}

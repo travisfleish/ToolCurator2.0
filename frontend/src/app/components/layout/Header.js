@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link'; // Added Link import
 import { Menu, X } from 'lucide-react';
 import { Inter } from 'next/font/google';
 import MobileMenu from './MobileMenu';
@@ -175,7 +176,8 @@ const Header = ({ onMenuToggle, isMarketMap = false }) => {
         <div className="flex items-center justify-between w-full mb-6 md:mb-8">
           {/* Left: TwinBrain Logo with "POWERED BY" text */}
           <div className="flex flex-col items-center gap-0 ml-4">
-            <a
+            {/* Changed from <a> to <Link> */}
+            <Link
               href="/"
               className="flex items-center"
             >
@@ -185,7 +187,7 @@ const Header = ({ onMenuToggle, isMarketMap = false }) => {
                 width={200}
                 height={200}
               />
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Nav */}

@@ -4,6 +4,11 @@ import { ExternalLink, Maximize2 } from 'lucide-react';
 import CardModal from './CardModal';
 
 const EnterpriseToolCard = ({ tool, tools = [], category = '' }) => {
+  // Always initialize all hooks at the top of your component
+  const [currentToolIndex, setCurrentToolIndex] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalToolIndex, setModalToolIndex] = useState(0);
+
   // If 'tools' array is provided, we'll use carousel functionality
   // Otherwise, we'll just show the single 'tool'
   const displayTools = tools.length > 0 ? tools : (tool ? [tool] : []);
@@ -23,12 +28,6 @@ const EnterpriseToolCard = ({ tool, tools = [], category = '' }) => {
       </div>
     );
   }
-
-  const [currentToolIndex, setCurrentToolIndex] = useState(0);
-  // State for modal visibility
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  // Completely separate modal state - initialized when modal opens
-  const [modalToolIndex, setModalToolIndex] = useState(0);
 
   // Get the current tool to display
   const currentTool = displayTools[currentToolIndex % displayTools.length];

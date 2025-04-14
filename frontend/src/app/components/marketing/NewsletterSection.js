@@ -110,7 +110,7 @@ const NewsletterSection = ({ variant = "fixed", onClose }) => {
           {/* 4. Quote at the bottom - ensures it doesn't overlap with image */}
           <div className="max-w-xl mx-auto pl-0 sm:pl-12 md:pl-20 lg:pl-0">
             <div className="italic text-white/90 text-sm md:text-base">
-              "AI is not a replacement for human intelligence, it's a force multiplier. Our goal is to help leaders and teams across industries use AI to unlock smarter decisions, deeper insights, and streamlined execution."
+              &quot;AI is not a replacement for human intelligence, it&apos;s a force multiplier. Our goal is to help leaders and teams across industries use AI to unlock smarter decisions, deeper insights, and streamlined execution.&quot;
             </div>
             <div className="text-white/80 text-xs mt-2">
               Travis Fleisher, Founder

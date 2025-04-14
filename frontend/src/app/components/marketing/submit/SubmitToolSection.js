@@ -285,7 +285,7 @@ const SubmitToolSection = () => {
                       </button>
                     </div>
                     <p className="text-xs text-gray-500 mt-1">
-                      Provide a URL to your tool's logo or screenshot (min 400x400px)
+                      Provide a URL to your tool&apos;s logo or screenshot (min 400x400px)
                     </p>
                   </div>
                 </div>
@@ -328,7 +328,7 @@ const SubmitToolSection = () => {
                         placeholder="john@example.com"
                       />
                       <p className="text-xs text-gray-500 mt-1">
-                        We'll only use this to contact you about your submission
+                        We&apos;ll only use this to contact you about your submission
                       </p>
                     </div>
                   </div>
@@ -370,7 +370,7 @@ const SubmitToolSection = () => {
           {/* Testimonials or Additional Information */}
           <div className="mt-16 text-center">
             <p className="text-xl text-gray-600 italic mb-4">
-              "Having our AI tool featured on ToolCurator.ai helped us gain over 5,000 new users in just one week!"
+              &quot;Having our AI tool featured on ToolCurator.ai helped us gain over 5,000 new users in just one week!&quot;
             </p>
             <p className="text-gray-700 font-medium">
               — Sarah Chen, Founder of WordGenius AI

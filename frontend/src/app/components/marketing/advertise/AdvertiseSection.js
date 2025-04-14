@@ -424,7 +424,7 @@ const AdvertiseSection = () => {
                 </div>
               </div>
               <p className="text-gray-700 italic">
-                "Advertising with ToolCurator.ai generated over 2,000 new sign-ups in our first month. The audience is highly targeted and converted better than any other channel we've tried."
+                &quot;Advertising with ToolCurator.ai generated over 2,000 new sign-ups in our first month. The audience is highly targeted and converted better than any other channel we&apos;ve tried.&quot;
               </p>
             </div>
 
@@ -439,7 +439,7 @@ const AdvertiseSection = () => {
                 </div>
               </div>
               <p className="text-gray-700 italic">
-                "Being featured as Tool of the Month helped us secure our seed round. The exposure and credibility boost was exactly what we needed at our stage."
+                &quot;Being featured as Tool of the Month helped us secure our seed round. The exposure and credibility boost was exactly what we needed at our stage.&quot;
               </p>
             </div>
           </div>
@@ -465,7 +465,7 @@ const AdvertiseSection = () => {
 
               <div className="bg-white p-6 rounded-xl shadow-md">
                 <h3 className="font-bold text-xl mb-2">What assets do I need to provide?</h3>
-                <p className="text-gray-700">We'll need your logo, a product screenshot, and brief promotional copy. Our team will guide you through the exact specifications.</p>
+                <p className="text-gray-700">We&apos;ll need your logo, a product screenshot, and brief promotional copy. Our team will guide you through the exact specifications.</p>
               </div>
             </div>
           </div>

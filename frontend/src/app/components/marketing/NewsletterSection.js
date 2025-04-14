@@ -39,7 +39,7 @@ const NewsletterSection = ({ variant = "fixed", onClose }) => {
   }, []);
 
   return (
-    <section id="newsletter-section" className="w-full bg-blue-600 py-10 md:py-14 relative overflow-hidden">
+    <section id="newsletter-section" className="w-full bg-blue-600 py-10 md:py-10 mt-10 relative overflow-hidden">
       {/* Background pattern - subtle dots */}
       <div
         className="absolute inset-0 opacity-10"
@@ -65,7 +65,7 @@ const NewsletterSection = ({ variant = "fixed", onClose }) => {
       <div className="container mx-auto px-4 md:px-8 relative z-10">
         <div className="text-center">
           {/* 1. Title at the top */}
-          <h2 className="text-3xl md:text-5xl font-bold text-white mb-10">
+          <h2 className="text-3xl md:text-5xl font-bold text-white mb-10 mt-4">
             Get AI Tools in Your Inbox! 🚀
           </h2>
 
@@ -109,10 +109,10 @@ const NewsletterSection = ({ variant = "fixed", onClose }) => {
 
           {/* 4. Quote at the bottom - ensures it doesn't overlap with image */}
           <div className="max-w-xl mx-auto pl-0 sm:pl-12 md:pl-20 lg:pl-0">
-            <div className="italic text-white/90 text-sm md:text-base">
-              &quot;AI is not a replacement for human intelligence, it&apos;s a force multiplier. Our goal is to help leaders and teams across industries use AI to unlock smarter decisions, deeper insights, and streamlined execution.&quot;
+            <div className="text-white/90 text-base md:text-lg font-semibold">
+              &quot;I&apos;m not a technical person by background, just someone deeply curious about AI. But the landscape felt overwhelming. Thousands of tools. Constantly changing. I built ToolCurator because I wanted something simple, valuable, and curated. A guide for people like me who just want to get started.&quot;
             </div>
-            <div className="text-white/80 text-xs mt-2">
+            <div className="text-white/80 italic text-xl mt-8">
               Travis Fleisher, Founder
             </div>
           </div>

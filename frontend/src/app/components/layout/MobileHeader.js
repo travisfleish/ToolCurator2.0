@@ -1,92 +1,149 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { X } from 'lucide-react';
+import { Inter } from 'next/font/google';
+import MobileMenu from './MobileMenu';
+import { useRouter } from 'next/navigation';
 
-const MobileHeader = ({ isMarketMap = false }) => {
+// Configure font
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+});
+
+const MobileHeader = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(true);
+  const [displayText, setDisplayText] = useState('');
+  const [typingComplete, setTypingComplete] = useState(false);
+  const headerRef = useRef(null);
+  const router = useRouter();
 
   // Navigation items
   const navItems = [
     {
-      label: "AI Marketmap",
-      href: "/marketmap",
+      label: "Home",
+      href: "/",
       onClick: (e) => {
-        if (window.location.pathname === "/marketmap") {
-          e.preventDefault();
-        }
+        e.preventDefault();
+        router.push('/');
+        setMenuOpen(false);
       }
     },
     {
-      label: "AI Blog",
-      href: "https://www.twinbrain.ai/blog",
-      target: "_blank",
-      rel: "noopener noreferrer"
+      label: "Resources",
+      href: "/resources",
+      onClick: (e) => {
+        e.preventDefault();
+        router.push('/resources');
+        setMenuOpen(false);
+      }
+    },
+    {
+      label: "Blog",
+      href: "#blog-section",
+      onClick: (e) => {
+        e.preventDefault();
+        const blogSection = document.getElementById('blog-section');
+        if (blogSection) {
+          blogSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          router.push('/#blog-section');
+        }
+        setMenuOpen(false);
+      }
+    },
+    {
+      label: "Newsletter",
+      href: "#newsletter-section",
+      onClick: (e) => {
+        e.preventDefault();
+        const newsletterSection = document.getElementById('newsletter-section');
+        if (newsletterSection) {
+          newsletterSection.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          router.push('/#newsletter-section');
+        }
+        setMenuOpen(false);
+      }
     }
   ];
 
+  // Typing animation for the title
+  const fullText = "ToolCurator.ai";
+  const typingSpeed = 150; // milliseconds per character
+
+  useEffect(() => {
+    let currentIndex = 0;
+    let timer;
+
+    const typeText = () => {
+      if (currentIndex <= fullText.length) {
+        setDisplayText(fullText.substring(0, currentIndex));
+        currentIndex++;
+        timer = setTimeout(typeText, typingSpeed);
+      } else {
+        setTypingComplete(true);
+      }
+    };
+
+    // Start typing animation after a short delay
+    const startDelay = setTimeout(() => {
+      typeText();
+    }, 500);
+
+    // Cleanup function
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(startDelay);
+    };
+  }, []);
+
+  // Parse display text to apply different styles
+  const renderTitle = () => {
+    const toolPart = displayText.startsWith('Tool') ? 'Tool' : displayText;
+    const curatorPart = displayText.length > 4 ? displayText.substring(4, 11) : '';
+    const aiPart = displayText.length > 11 ? displayText.substring(11) : '';
+
+    return (
+      <>
+        <span className="font-normal text-white">{toolPart}</span>
+        {curatorPart && <span className="font-bold text-white">{curatorPart}</span>}
+        {aiPart && <span className="font-bold text-yellow-300">{aiPart}</span>}
+        {!typingComplete && <span className="inline-block w-[2px] h-[1em] bg-white ml-1 animate-[blink_1s_step-end_infinite]"></span>}
+      </>
+    );
+  };
+
   return (
-    <header className="relative w-full text-white shadow-lg">
-      {/* Background with SIL_bg.jpg (same as blog section) */}
-      <div className="absolute inset-0 z-0">
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundImage: "url('/SIL_bg.jpg')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            filter: 'grayscale(100%)',
-            zIndex: 0
-          }}
-        />
-        {/* Dark overlay to ensure text is readable */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-            zIndex: 1
-          }}
-        />
-      </div>
-
-      {/* Main header bar */}
-      <div className="flex items-center justify-between px-4 py-4 relative z-10">
-        {/* Logo */}
-        <div className="flex items-center">
-          <div className="relative h-14 w-14 flex items-center justify-center">
-            {imageLoaded ? (
-              <img
-                src="/AI_Advantage.png"
-                alt="AI Advantage Logo"
-                className="max-h-full max-w-full object-contain"
-                onError={() => setImageLoaded(false)}
+    <header
+      ref={headerRef}
+      className="relative w-full text-white shadow-lg px-4 pt-4 pb-10"
+      style={{
+        position: 'relative',
+        overflow: 'hidden',
+        background: 'linear-gradient(to right, #4facfe 0%, #6a67fe 100%)'
+      }}
+    >
+      {/* Content container */}
+      <div style={{ position: 'relative', zIndex: 3 }}>
+        {/* Top: Logo + Nav */}
+        <div className="flex items-center justify-between w-full mb-6">
+          {/* Left: TwinBrain Logo */}
+          <div className="flex flex-col items-center gap-0">
+            <a href="/" className="flex items-center">
+              <Image
+                src="/TwinBrain_White_Transparent.png"
+                alt="TwinBrain AI Logo"
+                width={160}
+                height={160}
               />
-            ) : (
-              <span className="text-xl font-bold">AI</span>
-            )}
+            </a>
           </div>
-        </div>
 
-        {/* Empty middle space */}
-        <div className="flex-1"></div>
-
-        {/* Menu button with two parallel lines */}
-        <div className="flex justify-end">
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="text-white focus:outline-none p-1"
-            aria-label="Toggle menu"
-          >
+          {/* Mobile Hamburger */}
+          <button onClick={() => setMenuOpen(!menuOpen)} className="text-white focus:outline-none">
             {menuOpen ? (
               <X size={28} />
             ) : (
@@ -97,72 +154,27 @@ const MobileHeader = ({ isMarketMap = false }) => {
             )}
           </button>
         </div>
-      </div>
 
-      {/* Center title - added for the main title */}
-      <div className="text-center pb-4 relative z-10 px-4">
-        <h1 className="text-3xl font-bold">
-          {isMarketMap ? "AI Marketmap" : "AI Advantage"}
-        </h1>
-        <p className="text-sm opacity-80 mt-1">
-          {isMarketMap
-            ? "Explore the AI tools ecosystem"
-            : "Resources for sports professionals"
-          }
-        </p>
-      </div>
+        {/* Title Section with Typing Animation */}
+        <div className="text-center mt-8 pb-6">
+          <h1 className={`${inter.className} text-4xl leading-tight mb-4 tracking-tight`}>
+            {renderTitle()}
+          </h1>
 
-      {/* Dropdown menu - using same dark overlay */}
-      {menuOpen && (
-        <div className="absolute w-full z-50 relative">
-          {/* Use same background and overlay for consistency */}
-          <div className="absolute inset-0 z-0">
-            <div
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundImage: "url('/SIL_bg.jpg')",
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                filter: 'grayscale(100%)',
-                zIndex: 0
-              }}
-            />
-            <div
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                backgroundColor: 'rgba(0, 0, 0, 0.85)',
-                zIndex: 1
-              }}
-            />
-          </div>
-
-          <nav className="flex flex-col py-3 relative z-10">
-            {navItems.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                target={item.target}
-                rel={item.rel}
-                onClick={(e) => {
-                  if (item.onClick) item.onClick(e);
-                  setMenuOpen(false);
-                }}
-                className="px-6 py-4 hover:bg-black/30 text-base font-medium text-center"
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
+          {/* Subtitle */}
+          <p className="text-lg mt-4 font-light text-white">
+            We aggregate, curate, and simplify AI tool discovery
+          </p>
         </div>
-      )}
+      </div>
+
+      {/* Mobile Menu */}
+      <MobileMenu
+        isOpen={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        headerRef={headerRef}
+        navItems={navItems}
+      />
     </header>
   );
 };

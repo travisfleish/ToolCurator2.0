@@ -61,42 +61,42 @@ const Footer = () => {
           <Image
             src="/TwinBrain_White_Transparent.png"
             alt="TwinBrain AI Logo"
-            width={isMobile ? 70 : 160}
+            width={isMobile ? 150 : 250}
             height={isMobile ? 25 : 40}
             className="h-auto"
           />
         </a>
       </div>
 
-      {/* Footer Navigation */}
-      <div className="flex flex-wrap justify-center gap-x-8 gap-y-3 mb-6">
-        {footerLinks.map((link, index) => (
-          <a
-            key={index}
-            href={link.href}
-            onClick={link.onClick}
-            className="text-gray-300 hover:text-white transition-colors"
-          >
-            {link.label}
-          </a>
-        ))}
+      {/*/!* Footer Navigation *!/*/}
+      {/*<div className="flex flex-wrap justify-center gap-x-8 gap-y-3 mb-6">*/}
+      {/*  {footerLinks.map((link, index) => (*/}
+      {/*    <a*/}
+      {/*      key={index}*/}
+      {/*      href={link.href}*/}
+      {/*      onClick={link.onClick}*/}
+      {/*      className="text-gray-300 hover:text-white transition-colors"*/}
+      {/*    >*/}
+      {/*      {link.label}*/}
+      {/*    </a>*/}
+      {/*  ))}*/}
 
-        {/* Additional footer links */}
-        <a href="/privacy" className="text-gray-300 hover:text-white transition-colors">
-          Privacy Policy
-        </a>
-        <a href="/terms" className="text-gray-300 hover:text-white transition-colors">
-          Terms of Service
-        </a>
-        <a href="/contact" className="text-gray-300 hover:text-white transition-colors">
-          Contact Us
-        </a>
-      </div>
+      {/*  /!* Additional footer links *!/*/}
+      {/*  <a href="/privacy" className="text-gray-300 hover:text-white transition-colors">*/}
+      {/*    Privacy Policy*/}
+      {/*  </a>*/}
+      {/*  <a href="/terms" className="text-gray-300 hover:text-white transition-colors">*/}
+      {/*    Terms of Service*/}
+      {/*  </a>*/}
+      {/*  <a href="/contact" className="text-gray-300 hover:text-white transition-colors">*/}
+      {/*    Contact Us*/}
+      {/*  </a>*/}
+      {/*</div>*/}
 
-      {/* Copyright */}
-      <div className={copyrightClass}>
-        &copy; {new Date().getFullYear()} ToolCurator.ai | Powered by TwinBrain.ai | All rights reserved.
-      </div>
+      {/*/!* Copyright *!/*/}
+      {/*<div className={copyrightClass}>*/}
+      {/*  &copy; {new Date().getFullYear()} ToolCurator.ai | Powered by TwinBrain.ai | All rights reserved.*/}
+      {/*</div>*/}
     </footer>
   );
 };

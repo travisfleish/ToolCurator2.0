@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 // Import components
 import Header from './components/layout/Header';
 import MobileHeader from './components/layout/MobileHeader';
-import MobileDescriptionSection from './components/ui/MobileDescriptionSection';
 import Footer from './components/layout/Footer';
 import SponsorCarousel from './components/marketing/SponsorCarousel';
 import NewsletterSection from './components/marketing/NewsletterSection';
@@ -17,9 +16,12 @@ import ScrollAnimation from './components/ui/ScrollAnimation';
 // Import the animations CSS
 import './animations.css';
 
+// Import useToolFiltering hook (updated version with loading/error states)
+import { useToolFiltering } from './hooks/useToolFiltering';
+
 // Simplified hook functionality
 const useMediaQuery = () => {
-  const [matches, setMatches] = React.useState(false);
+  const [matches, setMatches] = useState(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -34,9 +36,6 @@ const useMediaQuery = () => {
 
   return matches;
 };
-
-// Import useToolFiltering hook (updated version with loading/error states)
-import { useToolFiltering } from './hooks/useToolFiltering';
 
 export default function Home() {
   // Use custom hooks for state management with enhanced states
@@ -88,9 +87,6 @@ export default function Home() {
     <div className="min-h-screen bg-gray-100 text-gray-900 flex flex-col items-center relative">
       {/* Conditionally render MobileHeader for mobile, regular Header for desktop */}
       {isMobile ? <MobileHeader /> : <Header />}
-
-      {/* Mobile Description Section - only appears on mobile */}
-      <MobileDescriptionSection isMobile={isMobile} />
 
       {/* Toggle Buttons for Personal/Enterprise View - Pass isMobile prop */}
       <ScrollAnimation animation="fade-in" duration={800}>

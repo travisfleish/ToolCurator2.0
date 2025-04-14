@@ -5,14 +5,11 @@ import Image from 'next/image';
 import useNewsletterForm from '../../hooks/useNewsletterForm';
 
 const NewsletterSection = ({ variant = "fixed", onClose }) => {
-  // Different styles based on variant
   const isFixed = variant === "fixed";
   const isFloating = variant === "floating";
 
-  // Detect if we're on mobile
   const [isMobile, setIsMobile] = useState(false);
 
-  // Use the newsletter form hook for all devices
   const {
     email,
     setEmail,
@@ -27,20 +24,15 @@ const NewsletterSection = ({ variant = "fixed", onClose }) => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-
-    // Check on initial load
     checkMobile();
-
-    // Add event listener for window resize
     window.addEventListener('resize', checkMobile);
-
-    // Cleanup
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
   return (
-    <section id="newsletter-section" className="w-full bg-blue-600 py-10 md:py-10 mt-10 relative overflow-hidden">
-      {/* Background pattern - subtle dots */}
+    <section id="newsletter-section" className="w-full bg-blue-600 pt-16 pb-16 mt-10 relative overflow-hidden">
+
+      {/* Background pattern */}
       <div
         className="absolute inset-0 opacity-10"
         style={{
@@ -49,28 +41,30 @@ const NewsletterSection = ({ variant = "fixed", onClose }) => {
         }}
       />
 
-      {/* Founder image - positioned at the bottom left with responsive scaling */}
-      <div className="absolute bottom-0 left-0 h-auto w-1/4 sm:w-1/3 md:w-1/3 lg:w-1/3 xl:w-1/4 z-10">
+      {/* Founder Image - only visible on lg and xl */}
+      <div className="hidden 2xl:block absolute bottom-0 left-20 w-48 md:w-72 lg:w-60 xl:w-90 z-10">
         <Image
           src="/founder.png"
           alt="Travis Fleisher, Founder"
-          width={400}
-          height={600}
-          className="h-auto w-full object-contain object-bottom"
+          width={600}
+          height={800}
+          className="w-full h-auto object-contain"
           priority
         />
       </div>
 
-      {/* Main content - centered with padding to avoid image overlap */}
-      <div className="container mx-auto px-4 md:px-8 relative z-10">
+
+      {/* Main content */}
+      <div className="container mx-auto px-4 md:px-8 relative z-20">
         <div className="text-center">
-          {/* 1. Title at the top */}
+
+          {/* Title */}
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-10 mt-4">
-            Get AI Tools in Your Inbox! 🚀
+            Get the Best New AI Tools in Your Inbox, Every Week
           </h2>
 
-          {/* 2. Input form */}
-          <div className="max-w-xl mx-auto mb-8">
+          {/* Input form */}
+          <div className="max-w-xl mx-auto mb-2">
             <form
               className="flex flex-col sm:flex-row items-center gap-2"
               onSubmit={handleSubscribe}
@@ -92,7 +86,6 @@ const NewsletterSection = ({ variant = "fixed", onClose }) => {
                 {isSubmitting ? "Submitting..." : "Get Weekly Tools"}
               </button>
             </form>
-
             {message && (
               <p className={`text-sm mt-2 font-medium text-center ${isSuccess ? 'text-green-300' : 'text-white'}`}>
                 {message}
@@ -100,22 +93,21 @@ const NewsletterSection = ({ variant = "fixed", onClose }) => {
             )}
           </div>
 
-          {/* 3. Stay ahead text */}
-          <div className="text-white mb-8">
-            <p className="text-base md:text-lg mx-auto">
-              Stay up-to-date in this rapidly evolving field with our weekly newsletter.
-            </p>
+          {/* Quote block */}
+          <div className="flex justify-center">
+            <div className="w-full max-w-4xl text-left mt-14 mb-6">
+              <p className="text-white/90 text-base md:text-lg font-semibold text-center">
+                “Hi, I’m Travis. I built ToolCurator to solve a problem I had: there are tons of AI tools, but no easy way to find the good ones. I track trending tools, test them myself, and share only what’s actually useful.”
+              </p>
+              <p className="text-white/90 text-base md:text-lg font-semibold mt-4 text-center">
+                “Each week, I send out a newsletter with handpicked tools, tutorials, and reviews—so you can use AI to work smarter, not harder.”
+              </p>
+              <p className="text-white/80 text-sm mt-3 text-center">
+                — Travis Fleisher, Founder
+              </p>
+            </div>
           </div>
 
-          {/* 4. Quote at the bottom - ensures it doesn't overlap with image */}
-          <div className="max-w-xl mx-auto pl-0 sm:pl-12 md:pl-20 lg:pl-0">
-            <div className="text-white/90 text-base md:text-lg font-semibold">
-              &quot;I&apos;m not a technical person by background, just someone deeply curious about AI. But the landscape felt overwhelming. Thousands of tools. Constantly changing. I built ToolCurator because I wanted something simple, valuable, and curated. A guide for people like me who just want to get started.&quot;
-            </div>
-            <div className="text-white/80 italic text-xl mt-8">
-              Travis Fleisher, Founder
-            </div>
-          </div>
         </div>
       </div>
     </section>

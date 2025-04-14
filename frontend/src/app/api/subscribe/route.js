@@ -21,6 +21,10 @@ export async function POST(request) {
       private_key: process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n'),
     };
 
+    // Log for debugging (remove in production)
+    console.log('Using service account:', credentials.client_email);
+    console.log('Private key available:', !!credentials.private_key);
+
     // Create a JWT client
     const auth = new google.auth.JWT(
       credentials.client_email,
@@ -32,8 +36,10 @@ export async function POST(request) {
     // Create Google Sheets instance
     const sheets = google.sheets({ version: 'v4', auth });
 
-    // The ID from your clarification
-    const SPREADSHEET_ID = '1UIAD3g1V7-txig08SZE_l8uGIFRV38uXomIOtLslieo';
+    // Use the environment variable for spreadsheet ID
+    const SPREADSHEET_ID = process.env.SHEET_ID;
+    console.log('Using spreadsheet ID:', SPREADSHEET_ID);
+
     const RANGE = 'Sheet1!A:B'; // This targets columns A and B (Email and Timestamp)
 
     // Check if email already exists to prevent duplicates
@@ -55,6 +61,7 @@ export async function POST(request) {
     } catch (err) {
       // If there's an error checking for duplicates, log it and continue
       console.warn('Could not check for duplicate emails:', err.message);
+      console.warn('Error details:', err);
     }
 
     // Prepare the data to append - email goes in column A, timestamp in column B
@@ -78,7 +85,14 @@ export async function POST(request) {
     });
   } catch (error) {
     console.error('Newsletter subscription error:', error);
+
+    // More detailed error logging
+    if (error.response) {
+      console.error('Error response:', error.response.data);
+    }
+
     return NextResponse.json({
+      success: false,
       error: 'Failed to subscribe',
       details: process.env.NODE_ENV === 'development' ? error.message : 'Please try again later'
     }, { status: 500 });

@@ -42,7 +42,7 @@ const NewsletterSection = ({ variant = "fixed", onClose }) => {
       />
 
       {/* Founder Image - only visible on lg and xl */}
-      <div className="hidden 2xl:block absolute bottom-0 left-20 w-48 md:w-72 lg:w-60 xl:w-90 z-10">
+      <div className="hidden md:block absolute bottom-0 left-20 w-48 md:w-40 lg:w-40 xl:w-80 z-10">
         <Image
           src="/founder.png"
           alt="Travis Fleisher, Founder"

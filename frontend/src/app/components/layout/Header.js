@@ -75,14 +75,14 @@ const Header = ({ onMenuToggle, isMarketMap = false }) => {
         router.push('/');
       }
     },
-    {
-      label: "Resources",
-      href: "/resources",
-      onClick: (e) => {
-        e.preventDefault();
-        router.push('/resources');
-      }
-    },
+    // {
+    //   label: "Resources",
+    //   href: "/resources",
+    //   onClick: (e) => {
+    //     e.preventDefault();
+    //     router.push('/resources');
+    //   }
+    // },
     {
       label: "Blog",
       href: "#blog-section",

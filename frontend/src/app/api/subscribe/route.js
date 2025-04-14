@@ -81,7 +81,7 @@ export async function POST(request) {
     // Return success response
     return NextResponse.json({
       success: true,
-      message: 'Thank you for subscribing to our newsletter!'
+      message: 'Thank you for subscribing to our newsletter!!'
     });
   } catch (error) {
     console.error('Newsletter subscription error:', error);

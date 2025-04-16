@@ -4,7 +4,7 @@ import { DEMO_CATEGORIES } from '../../utils/constants';
 import CategoryCard from './CategoryCard';
 import EnterpriseToolCard from './EnterpriseToolCard';
 import useScrollAnimation from '../../hooks/useScrollAnimation';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
 
 // Define the AI enterprise categories
 const ENTERPRISE_AI_CATEGORIES = [
@@ -16,13 +16,14 @@ const ENTERPRISE_AI_CATEGORIES = [
   "Enterprise Search & QA"
 ];
 
-// MobileCategoryCard component (unchanged from your code)
-const MobileCategoryCard = ({ category, tools }) => {
+// Unified MobileCategoryCard component for both personal and enterprise views
+const MobileCategoryCard = ({ category, tools, isEnterprise = false }) => {
   // State for the current tool index within this category
   const [currentToolIndex, setCurrentToolIndex] = useState(0);
 
-  // Filter tools that match this category
-  const categoryTools = tools.filter(tool => tool.category === category || tool.sector === category);
+  // Filter tools - for personal view, we need to filter by category
+  // For enterprise view, we expect pre-filtered tools by sector
+  const categoryTools = isEnterprise ? tools : tools.filter(tool => tool.category === category);
 
   // If no tools match this category, don't render anything
   if (categoryTools.length === 0) {
@@ -36,7 +37,7 @@ const MobileCategoryCard = ({ category, tools }) => {
   const hasMultipleTools = categoryTools.length > 1;
 
   return (
-    <div className="mb-8 border border-gray-200 rounded-xl shadow-lg bg-white flex flex-col items-center text-center">
+    <div className="mb-8 border border-gray-200 rounded-xl shadow-lg bg-white flex flex-col items-center text-center overflow-hidden">
       {/* Category header with improved styling */}
       <div className="w-full bg-blue-100 py-3 px-4 text-center border-b border-blue-200">
         <span className="font-bold text-blue-800 text-lg tracking-wide">
@@ -44,18 +45,9 @@ const MobileCategoryCard = ({ category, tools }) => {
         </span>
       </div>
 
-      {/* Container with overflow visible to allow nav buttons to extend outside */}
-      <div className="relative w-full" style={{ overflow: 'visible' }}>
-        {/* Image container */}
-        <div className="w-full h-32 overflow-hidden">
-          <img
-            src={currentTool.screenshot_url || '/default-screenshot.png'}
-            alt={`${currentTool.name} Screenshot`}
-            className="w-full h-full object-cover"
-          />
-        </div>
-
-        {/* Navigation arrows - positioned 50% on/off the edge but smaller */}
+      {/* Image container with relative positioning for buttons */}
+      <div className="relative w-full">
+        {/* Navigation arrows - enhanced with background */}
         {hasMultipleTools && (
           <>
             <button
@@ -64,8 +56,7 @@ const MobileCategoryCard = ({ category, tools }) => {
                   prev === 0 ? categoryTools.length - 1 : prev - 1
                 );
               }}
-              className="absolute left-0 translate-x-[-40%] top-[100%] -translate-y-1/2 z-20 bg-white rounded-full shadow-md p-2 hover:bg-gray-100 transition-transform hover:scale-110"
-              style={{ overflow: 'visible' }}
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-10 bg-white/90 p-2.5 rounded-full shadow-md hover:bg-white hover:shadow-lg transition-all duration-200"
               aria-label="Previous tool"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -79,8 +70,7 @@ const MobileCategoryCard = ({ category, tools }) => {
                   (prev + 1) % categoryTools.length
                 );
               }}
-              className="absolute right-0 translate-x-[40%] top-[100%] -translate-y-1/2 z-20 bg-white rounded-full shadow-md p-2 hover:bg-gray-100 transition-transform hover:scale-110"
-              style={{ overflow: 'visible' }}
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-10 bg-white/90 p-2.5 rounded-full shadow-md hover:bg-white hover:shadow-lg transition-all duration-200"
               aria-label="Next tool"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -88,6 +78,22 @@ const MobileCategoryCard = ({ category, tools }) => {
               </svg>
             </button>
           </>
+        )}
+
+        {/* Simple image with reduced height using a fixed height container */}
+        <div className="w-full h-32 overflow-hidden">
+          <img
+            src={currentTool.screenshot_url || '/default-screenshot.png'}
+            alt={`${currentTool.name} Screenshot`}
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* Tool counter (e.g., "1/3") - shows actual number */}
+        {hasMultipleTools && (
+          <div className="absolute bottom-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full opacity-80">
+            {currentToolIndex + 1}/{categoryTools.length}
+          </div>
         )}
       </div>
 
@@ -102,32 +108,33 @@ const MobileCategoryCard = ({ category, tools }) => {
           >
             {currentTool.name}
           </a>
+          <ExternalLink className="ml-2 w-4 h-4 text-gray-500 inline" />
         </h3>
+
+        {/* Show sector badge for enterprise tools */}
+        {isEnterprise && currentTool.sector && (
+          <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mt-1 mb-2">
+            {currentTool.sector}
+          </span>
+        )}
 
         <p className="text-gray-600 text-center mt-1 mb-3 line-clamp-3 text-sm">
           {currentTool.short_description}
         </p>
 
-        {/* Pagination dots and counter below - rearranged */}
+        {/* Pagination dots for multiple tools - improved styling */}
         {hasMultipleTools && (
-          <div className="flex flex-col items-center mt-2">
-            <div className="flex justify-center space-x-1.5 mb-2">
-              {categoryTools.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentToolIndex(index)}
-                  className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                    currentToolIndex === index ? 'bg-blue-500 scale-110' : 'bg-gray-300'
-                  }`}
-                  aria-label={`Go to tool ${index + 1}`}
-                />
-              ))}
-            </div>
-
-            {/* Counter moved below the pagination dots */}
-            <div className="text-blue-600 text-xs font-medium">
-              {currentToolIndex + 1}/{categoryTools.length}
-            </div>
+          <div className="flex justify-center mt-2 space-x-1.5">
+            {categoryTools.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentToolIndex(index)}
+                className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                  currentToolIndex === index ? 'bg-blue-500 scale-110' : 'bg-gray-300'
+                }`}
+                aria-label={`Go to tool ${index + 1}`}
+              />
+            ))}
           </div>
         )}
       </div>
@@ -135,7 +142,7 @@ const MobileCategoryCard = ({ category, tools }) => {
   );
 };
 
-const ToolGrid = ({ tools, selectedFilter }) => {
+const ToolGrid = ({ tools, selectedFilter, selectedCategory }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   // Detect if we're on mobile
@@ -187,40 +194,36 @@ const ToolGrid = ({ tools, selectedFilter }) => {
     );
   }
 
-  // Mobile layout
+  // Mobile layout - UNIFIED APPROACH FOR BOTH PERSONAL AND ENTERPRISE
   if (isMobile) {
-    // Special handling for personal tools on mobile
-    if (selectedFilter === 'personal') {
-      return (
-        <section className="p-6 w-full">
-          <div className="w-full">
-            {/* Use the enhanced MobileCategoryCard for personal view */}
-            {DEMO_CATEGORIES.map((category, index) => (
+    return (
+      <section className="p-6 w-full">
+        <div className="w-full">
+          {selectedFilter === 'personal' ? (
+            // Personal view - map through DEMO_CATEGORIES
+            DEMO_CATEGORIES.map((category, index) => (
               <MobileCategoryCard
                 key={category}
                 category={category}
                 tools={tools}
+                isEnterprise={false}
               />
-            ))}
-          </div>
-        </section>
-      );
-    }
-
-    // Mobile Enterprise View - Use CategoryCard for each AI category
-    return (
-      <section className="px-4 py-6 w-full">
-        <div className="w-full">
-          {ENTERPRISE_AI_CATEGORIES.map((category, index) => {
-            const categoryTools = tools.filter(tool => tool.sector === category);
-            return (
-              <EnterpriseToolCard
-                key={category}
-                tools={categoryTools}
-                category={category}
-              />
-            );
-          })}
+            ))
+          ) : (
+            // Enterprise view - map through ENTERPRISE_AI_CATEGORIES
+            ENTERPRISE_AI_CATEGORIES.map((category, index) => {
+              // Filter tools for this specific enterprise category
+              const categoryTools = tools.filter(tool => tool.sector === category);
+              return (
+                <MobileCategoryCard
+                  key={category}
+                  category={category}
+                  tools={categoryTools}
+                  isEnterprise={true}
+                />
+              );
+            })
+          )}
         </div>
       </section>
     );

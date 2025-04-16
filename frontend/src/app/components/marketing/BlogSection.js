@@ -7,17 +7,19 @@ import { fetchBlogPosts } from '../../../lib/blog-util';
 
 // Neural Network Background Animation - Updated to accept and check isMobile prop
 const NeuralNetworkBackground = ({ isMobile }) => {
-  // Skip rendering completely on mobile devices
-  if (isMobile) {
-    return null;
-  }
-
+  // Define all hooks first - this is required by React's rules of hooks
   const canvasRef = useRef(null);
   const neuronsRef = useRef([]);
   const connectionsRef = useRef([]);
   const animationRef = useRef(null);
 
+  // Use useEffect to conditionally run the animation logic only on non-mobile devices
   useEffect(() => {
+    // Skip all animation setup for mobile devices
+    if (isMobile || !canvasRef.current) {
+      return;
+    }
+
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
 
@@ -296,7 +298,12 @@ const NeuralNetworkBackground = ({ isMobile }) => {
         resizeObserver.unobserve(canvas.parentElement);
       }
     };
-  }, []);
+  }, [isMobile]);
+
+  // For mobile devices, return null instead of a canvas
+  if (isMobile) {
+    return null;
+  }
 
   return (
     <canvas
@@ -316,7 +323,7 @@ const NeuralNetworkBackground = ({ isMobile }) => {
 };
 
 const BlogSection = () => {
-  // State management remains the same
+  // State management
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -340,7 +347,7 @@ const BlogSection = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // State management for blog section
+  // Fetch blog posts
   useEffect(() => {
     const loadBlogPosts = async () => {
       try {

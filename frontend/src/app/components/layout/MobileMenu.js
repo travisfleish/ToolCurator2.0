@@ -74,7 +74,7 @@ const MobileMenu = ({ isOpen, onClose, headerRef, navItems }) => {
         </div>
 
         {/* Navigation Links - MOVED UP TO AVOID BOTTOM OVERFLOW */}
-        <div className="flex flex-col items-center w-full mt-6 pb-20">
+        <div className="flex flex-col items-center w-full mt-0 pb-20">
           {navItems.map((item) => (
             <a
               key={item.label}

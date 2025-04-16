@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import Link from 'next/link'; // Added Link import
+import Link from 'next/link';
 import { X } from 'lucide-react';
 import { Inter } from 'next/font/google';
 import MobileMenu from './MobileMenu';
@@ -21,7 +21,7 @@ const MobileHeader = () => {
   const headerRef = useRef(null);
   const router = useRouter();
 
-  // Navigation items
+  // Navigation items - Resources removed as requested
   const navItems = [
     {
       label: "Home",
@@ -32,15 +32,7 @@ const MobileHeader = () => {
         setMenuOpen(false);
       }
     },
-    {
-      label: "Resources",
-      href: "/resources",
-      onClick: (e) => {
-        e.preventDefault();
-        router.push('/resources');
-        setMenuOpen(false);
-      }
-    },
+    // Resources item has been removed
     {
       label: "Blog",
       href: "#blog-section",
@@ -133,7 +125,6 @@ const MobileHeader = () => {
         <div className="flex items-center justify-between w-full mb-6">
           {/* Left: TwinBrain Logo */}
           <div className="flex flex-col items-center gap-0">
-            {/* Changed from <a> to <Link> */}
             <Link href="/" className="flex items-center">
               <Image
                 src="/TwinBrain_White_Transparent.png"
@@ -170,7 +161,7 @@ const MobileHeader = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Using updated component */}
       <MobileMenu
         isOpen={menuOpen}
         onClose={() => setMenuOpen(false)}

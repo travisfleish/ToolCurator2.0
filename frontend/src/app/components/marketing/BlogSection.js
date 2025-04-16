@@ -5,8 +5,13 @@ import Image from 'next/image';
 import { ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { fetchBlogPosts } from '../../../lib/blog-util';
 
-// Neural Network Background Animation
-const NeuralNetworkBackground = () => {
+// Neural Network Background Animation - Updated to accept and check isMobile prop
+const NeuralNetworkBackground = ({ isMobile }) => {
+  // Skip rendering completely on mobile devices
+  if (isMobile) {
+    return null;
+  }
+
   const canvasRef = useRef(null);
   const neuronsRef = useRef([]);
   const connectionsRef = useRef([]);
@@ -336,8 +341,6 @@ const BlogSection = () => {
   }, []);
 
   // State management for blog section
-
-  // Other code and helper functions remain the same...
   useEffect(() => {
     const loadBlogPosts = async () => {
       try {
@@ -362,7 +365,7 @@ const BlogSection = () => {
     loadBlogPosts();
   }, []);
 
-  // Helper functions remain the same...
+  // Helper functions
   const sanitizeText = (text) => {
     if (!text) return '';
     return text.replace(/'/g, "'");
@@ -433,8 +436,8 @@ const BlogSection = () => {
         }}
       />
 
-      {/* Neural Network Animation Background */}
-      <NeuralNetworkBackground />
+      {/* Neural Network Animation Background - Only for non-mobile devices */}
+      <NeuralNetworkBackground isMobile={isMobile} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Adjusted padding: less above, more below */}

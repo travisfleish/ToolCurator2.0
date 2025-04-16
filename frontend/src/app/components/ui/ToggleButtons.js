@@ -8,7 +8,7 @@ const ToggleButtons = ({
 }) => {
   return React.createElement("section", {
     // Conditional margin: large on desktop, small on mobile
-    className: `p-3 flex justify-center ${isMobile ? 'mt-4' : 'mt-16'} mb-5`
+    className: `p-3 flex justify-center ${isMobile ? 'mt-12' : 'mt-16'} mb-5`
   },
     React.createElement("div", {
       className: "inline-flex rounded-md shadow-sm"

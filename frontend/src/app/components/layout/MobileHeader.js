@@ -32,7 +32,6 @@ const MobileHeader = () => {
         setMenuOpen(false);
       }
     },
-    // Resources item has been removed
     {
       label: "Blog",
       href: "#blog-section",
@@ -154,14 +153,14 @@ const MobileHeader = () => {
             {renderTitle()}
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-lg mt-4 font-light text-white">
+          {/* Subtitle - Add the same constraints as in MobileMenu */}
+          <p className="text-lg mt-4 font-light text-white px-4 mx-auto max-w-sm">
             We aggregate, curate, and simplify AI tool discovery
           </p>
         </div>
       </div>
 
-      {/* Mobile Menu - Using updated component */}
+      {/* Mobile Menu */}
       <MobileMenu
         isOpen={menuOpen}
         onClose={() => setMenuOpen(false)}

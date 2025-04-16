@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { X } from 'lucide-react';
 import { Inter } from 'next/font/google';
 import Image from 'next/image';
@@ -66,21 +66,21 @@ const MobileMenu = ({ isOpen, onClose, headerRef, navItems }) => {
               <span className="font-bold text-yellow-300">.ai</span>
             </h1>
 
-            {/* Subtitle */}
-            <p className="text-lg mt-4 font-light text-white">
+            {/* Subtitle - EXACTLY MATCHING THE HEADER TEXT WRAPPING */}
+            <p className="text-lg mt-4 font-light text-white px-4 mx-auto max-w-sm">
               We aggregate, curate, and simplify AI tool discovery
             </p>
           </div>
         </div>
 
-        {/* Navigation Links - MOVED FURTHER DOWN TO MATCH SCREENSHOTS */}
-        <div className="flex flex-col items-center w-full mt-16">
+        {/* Navigation Links - MOVED UP TO AVOID BOTTOM OVERFLOW */}
+        <div className="flex flex-col items-center w-full mt-6 pb-20">
           {navItems.map((item) => (
             <a
               key={item.label}
               href={item.href}
               onClick={item.onClick}
-              className="text-white text-xl py-4 hover:bg-white/10 w-full text-center"
+              className="text-white text-xl py-3 hover:bg-white/10 w-full text-center"
             >
               {item.label}
             </a>

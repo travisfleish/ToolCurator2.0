@@ -97,10 +97,10 @@ const NewsletterSection = ({ variant = "fixed", onClose }) => {
           <div className="flex justify-center">
             <div className="w-full max-w-4xl text-left mt-14 mb-6">
               <p className="text-white/90 text-base md:text-lg font-semibold text-center">
-                “Hi, I’m Travis. I built ToolCurator to solve a problem I had: there are tons of AI tools, but no easy way to find the good ones. I track trending tools, test them myself, and share only what’s actually useful.”
+                “Hi, I’m Travis. I built ToolCurator to solve a problem I had: there are tons of AI tools, but no easy way to find the good ones. I track trending tools, test them myself, and share only what’s actually useful.
               </p>
               <p className="text-white/90 text-base md:text-lg font-semibold mt-4 text-center">
-                “Each week, I send out a newsletter with handpicked tools, tutorials, and reviews—so you can use AI to work smarter, not harder.”
+                Each week, I send out a newsletter with handpicked tools, tutorials, and reviews—so you can use AI to work smarter, not harder.”
               </p>
               <p className="text-white/80 text-sm mt-3 text-center">
                 — Travis Fleisher, Founder

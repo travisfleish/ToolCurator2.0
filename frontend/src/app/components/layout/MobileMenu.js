@@ -58,29 +58,25 @@ const MobileMenu = ({ isOpen, onClose, headerRef, navItems }) => {
             </button>
           </div>
 
-          {/* Title Section - EXACTLY MATCHING THE HEADER */}
+          {/* Title Section - SUBTITLE REMOVED */}
           <div className="text-center mt-8 pb-6">
             <h1 className={`${inter.className} text-4xl leading-tight mb-4 tracking-tight`}>
               <span className="font-normal text-white">Tool</span>
               <span className="font-bold text-white">Curator</span>
               <span className="font-bold text-yellow-300">.ai</span>
             </h1>
-
-            {/* Subtitle - EXACTLY MATCHING THE HEADER TEXT WRAPPING */}
-            <p className="text-lg mt-4 font-light text-white px-4 mx-auto max-w-sm">
-              We aggregate, curate, and simplify AI tool discovery
-            </p>
+            {/* Subtitle removed as requested */}
           </div>
         </div>
 
-        {/* Navigation Links - MOVED UP TO AVOID BOTTOM OVERFLOW */}
+        {/* Navigation Links - MOVED UP AND MADE BOLD */}
         <div className="flex flex-col items-center w-full mt-0 pb-20">
           {navItems.map((item) => (
             <a
               key={item.label}
               href={item.href}
               onClick={item.onClick}
-              className="text-white text-xl py-3 hover:bg-white/10 w-full text-center"
+              className="text-white text-xl py-4 font-bold hover:bg-white/10 w-full text-center"
             >
               {item.label}
             </a>

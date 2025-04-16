@@ -144,10 +144,10 @@ const CategoryCard = ({ category, tools, categoryIndex, demoCategories }) => {
         {/* Tool info section */}
         <div className="p-4 flex flex-col items-center w-full">
           {/* Tool name and link */}
-          <h3 className="text-lg font-bold flex items-center">
+          <h3 className="text-lg font-bold flex items-center justify-center">
             <a
               href={currentTool.source_url}
-              className="text-blue-600 hover:underline"
+              className="text-blue-600 hover:underline flex items-center"
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()} // Prevent opening modal when clicking link

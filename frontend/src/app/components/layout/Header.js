@@ -176,19 +176,20 @@ const Header = ({ onMenuToggle, isMarketMap = false }) => {
         <div className="flex items-center justify-between w-full mb-6 md:mb-8">
           {/* Left: TwinBrain Logo with "POWERED BY" text */}
           <div className="flex flex-col items-center gap-0 ml-4">
-            {/* Changed from <a> to <Link> */}
-            <Link
-              href="/"
-              className="flex items-center"
-            >
-              <Image
-                src="/TwinBrain_White_Transparent.png"
-                alt="TwinBrain AI Logo"
-                width={200}
-                height={200}
-              />
-            </Link>
-          </div>
+            <a
+                href="https://www.twinbrain.ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center"
+              >
+                <Image
+                  src="/TwinBrain_White_Transparent.png"
+                  alt="TwinBrain AI Logo"
+                  width={200}
+                  height={200}
+                />
+              </a>
+            </div>
 
           {/* Desktop Nav */}
           <nav className="hidden sm:flex gap-6 text-lg text-white font-medium mr-10">

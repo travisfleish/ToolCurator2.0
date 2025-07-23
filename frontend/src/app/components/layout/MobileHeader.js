@@ -115,7 +115,7 @@ const MobileHeader = () => {
       style={{
         position: 'relative',
         overflow: 'hidden',
-        background: 'linear-gradient(to right, #e86f0c 0%, #9f0909 100%)'
+        background: 'linear-gradient(to right, #c73434 0%, #e86f0c 100%)'
       }}
     >
       {/* Content container */}

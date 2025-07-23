@@ -3,61 +3,76 @@
 const fs = require('fs');
 const path = require('path');
 
-// Files containing the header gradient
-const headerFiles = [
-  './frontend/src/app/components/layout/Header.js',
-  './frontend/src/app/components/layout/MobileHeader.js',
-  './frontend/src/app/components/layout/MobileMenu.js'
-];
+// Target newsletter section file
+const newsletterFile = './frontend/src/app/components/marketing/NewsletterSection.js';
 
-function lightenHeaderMaroon() {
-  console.log('🎨 Lightening maroon in header gradient only...\n');
-  console.log('   Current gradient: #9f0909 → #e86f0c');
-  console.log('   New gradient: #c73434 → #e86f0c\n');
+function updateNewsletterButtonToGray() {
+  console.log('🎨 Updating newsletter button from maroon to gray-400...\n');
 
-  headerFiles.forEach(file => {
-    if (fs.existsSync(file)) {
-      let content = fs.readFileSync(file, 'utf8');
-      let changes = 0;
+  if (fs.existsSync(newsletterFile)) {
+    let content = fs.readFileSync(newsletterFile, 'utf8');
+    let changes = 0;
 
-      // Update gradient with lighter maroon
-      // Pattern 1: Current reversed gradient
-      const before1 = content;
-      content = content.replace(
-        /linear-gradient\(to right, #9f0909 0%, #e86f0c 100%\)/g,
-        'linear-gradient(to right, #c73434 0%, #e86f0c 100%)'
-      );
-      if (before1 !== content) changes++;
+    // 1. Update button from maroon to gray-400
+    // Pattern: bg-[#9f0909] to bg-gray-400
+    const before1 = content;
+    content = content.replace(
+      /bg-\[#9f0909\]/g,
+      'bg-gray-400'
+    );
+    if (before1 !== content) changes++;
 
-      // Pattern 2: Original gradient (if any still exist)
-      const before2 = content;
-      content = content.replace(
-        /linear-gradient\(to right, #e86f0c 0%, #9f0909 100%\)/g,
-        'linear-gradient(to right, #e86f0c 0%, #c73434 100%)'
-      );
-      if (before2 !== content) changes++;
+    // 2. Update hover state to gray-500
+    const before2 = content;
+    content = content.replace(
+      /hover:bg-\[#7f0707\]/g,
+      'hover:bg-gray-500'
+    );
+    if (before2 !== content) changes++;
 
-      if (changes > 0) {
-        fs.writeFileSync(file, content, 'utf8');
-        console.log(`  ✓ Updated ${path.basename(file)} (${changes} gradients updated)`);
-      } else {
-        console.log(`  - No gradient changes needed in ${path.basename(file)}`);
-      }
-    }
-  });
+    // 3. If using bg-maroon-500/600
+    const before3 = content;
+    content = content.replace(
+      /bg-maroon-500/g,
+      'bg-gray-400'
+    );
+    if (before3 !== content) changes++;
 
-  console.log('\n✅ Header gradient updated!');
-  console.log('\n🎨 New softer gradient:');
-  console.log('   - Start: #c73434 (soft maroon)');
-  console.log('   - End: #e86f0c (orange)');
-  console.log('\n💡 This creates a warmer, more inviting header');
-  console.log('   while keeping all other maroon elements unchanged.\n');
+    const before4 = content;
+    content = content.replace(
+      /hover:bg-maroon-600/g,
+      'hover:bg-gray-500'
+    );
+    if (before4 !== content) changes++;
 
-  console.log('📝 Other soft maroon options for the gradient:');
-  console.log('   - #b82929 (slightly darker)');
-  console.log('   - #d14040 (lighter, coral-tinted)');
-  console.log('   - #cc4444 (medium soft red)');
+    // 4. If still using yellow classes from original
+    const before5 = content;
+    content = content.replace(
+      /bg-yellow-500/g,
+      'bg-gray-400'
+    );
+    if (before5 !== content) changes++;
+
+    const before6 = content;
+    content = content.replace(
+      /hover:bg-yellow-600/g,
+      'hover:bg-gray-500'
+    );
+    if (before6 !== content) changes++;
+
+    fs.writeFileSync(newsletterFile, content, 'utf8');
+    console.log(`  ✓ Updated NewsletterSection.js (${changes} patterns changed)`);
+  } else {
+    console.log(`  ✗ File not found: ${newsletterFile}`);
+  }
+
+  console.log('\n✅ Newsletter button updated!');
+  console.log('\n🎯 Button styling:');
+  console.log('   - Default: gray-400');
+  console.log('   - Hover: gray-500');
+  console.log('\n💡 This creates a consistent monochrome look');
+  console.log('   matching your toggle buttons and other gray elements!');
 }
 
 // Run the update
-lightenHeaderMaroon();
+updateNewsletterButtonToGray();

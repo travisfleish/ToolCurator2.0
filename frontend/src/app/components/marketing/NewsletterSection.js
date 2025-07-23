@@ -80,7 +80,7 @@ const NewsletterSection = ({ variant = "fixed", onClose }) => {
               />
               <button
                 type="submit"
-                className="px-4 py-3 bg-[#9f0909] text-white font-bold rounded-lg hover:bg-[#7a0707] transition shadow-md w-full sm:w-auto whitespace-nowrap"
+                className="px-4 py-3 bg-gray-400 text-white font-bold rounded-lg hover:bg-[#7a0707] transition shadow-md w-full sm:w-auto whitespace-nowrap"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Submitting..." : "Get Weekly Tools"}

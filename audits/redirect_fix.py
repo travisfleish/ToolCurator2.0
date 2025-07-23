@@ -1,4 +1,4 @@
-# fix_redirects.py
+# redirect_fix.py
 import json
 import shutil
 from datetime import datetime

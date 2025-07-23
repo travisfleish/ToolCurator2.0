@@ -174,10 +174,10 @@ export const TOOL_DATA = [
   },
   {
     "id": "18",
-    "name": "Supernormal",
-    "source_url": "https://www.supernormal.com",
-    "short_description": "Auto-generates meeting notes, tasks, and summaries.",
-    "screenshot_url": "/screenshots/supernormal.png",
+    "name": "Sembly",
+    "source_url": "https://www.sembly.ai",
+    "short_description": "AI meeting assistant with advanced transcription, summaries, and insights.",
+    "screenshot_url": "/screenshots/sembly.png",
     "category": "Meeting Assistants",
     "type": "personal",
     "sector": "N/A"
@@ -214,10 +214,10 @@ export const TOOL_DATA = [
   },
   {
     "id": "22",
-    "name": "Decktopus",
-    "source_url": "https://www.decktopus.com",
-    "short_description": "Automated deck builder that adds content and formatting.",
-    "screenshot_url": "/screenshots/decktopus.png",
+    "name": "Pitch",
+    "source_url": "https://pitch.com",
+    "short_description": "Collaborative presentation software with AI-powered design features.",
+    "screenshot_url": "/screenshots/pitch.png",
     "category": "Deck Automation",
     "type": "personal",
     "sector": "N/A"
@@ -284,10 +284,10 @@ export const TOOL_DATA = [
   },
   {
     "id": "29",
-    "name": "Descript",
-    "source_url": "https://www.descript.com",
-    "short_description": "Text-based video/audio editor with screen recording & voice cloning.",
-    "screenshot_url": "/screenshots/descript.png",
+    "name": "Leonardo AI",
+    "source_url": "https://leonardo.ai",
+    "short_description": "AI-powered creative platform for generating stunning visual content and artwork.",
+    "screenshot_url": "/screenshots/leonardo_ai.png",
     "category": "Content Creation",
     "type": "personal",
     "sector": "N/A"
@@ -404,10 +404,10 @@ export const TOOL_DATA = [
   },
   {
     "id": "41",
-    "name": "Genein",
-    "source_url": "https://www.genei.io",
-    "short_description": "Summarizes articles and extracts key points for fast reading.",
-    "screenshot_url": "/screenshots/genein.png",
+    "name": "Consensus",
+    "source_url": "https://consensus.app",
+    "short_description": "AI-powered academic search engine that finds insights from research papers.",
+    "screenshot_url": "/screenshots/consensus.png",
     "category": "Research & Analysis",
     "type": "personal",
     "sector": "N/A"
@@ -594,10 +594,10 @@ export const TOOL_DATA = [
   },
   {
     "id": "60",
-    "name": "CAMEL",
-    "source_url": "https://www.camel-ai.org/",
-    "short_description": "Communicative agents for solving complex tasks",
-    "screenshot_url": "/screenshots/camel.png",
+    "name": "BabyAGI",
+    "source_url": "https://github.com/yoheinakajima/babyagi",
+    "short_description": "Task-driven autonomous agent framework for complex problem solving.",
+    "screenshot_url": "/screenshots/babyagi.png",
     "category": "None",
     "type": "enterprise",
     "sector": "Agent Builders"
@@ -654,10 +654,10 @@ export const TOOL_DATA = [
   },
   {
     "id": "66",
-    "name": "CrewAI SDK",
-    "source_url": "https://www.crewai.com/",
-    "short_description": "Agent SDK for coordination and memory sharing",
-    "screenshot_url": "/screenshots/crewai_sdk.png",
+    "name": "Haystack",
+    "source_url": "https://haystack.deepset.ai",
+    "short_description": "Open-source LLM orchestration framework for building AI applications.",
+    "screenshot_url": "/screenshots/haystack.png",
     "category": "None",
     "type": "enterprise",
     "sector": "LLM Frameworks & Orchestration"
@@ -704,10 +704,10 @@ export const TOOL_DATA = [
   },
   {
     "id": "71",
-    "name": "Fireworks.ai",
-    "source_url": "https://fireworks.ai/",
-    "short_description": "API access to open-source models with fine-tuning",
-    "screenshot_url": "/screenshots/fireworks.ai.png",
+    "name": "Cohere",
+    "source_url": "https://cohere.com",
+    "short_description": "Enterprise LLM platform with powerful language models and APIs.",
+    "screenshot_url": "/screenshots/cohere.png",
     "category": "None",
     "type": "enterprise",
     "sector": "Model Hubs & Customization"
@@ -734,10 +734,10 @@ export const TOOL_DATA = [
   },
   {
     "id": "74",
-    "name": "Anysphere",
-    "source_url": "https://anysphere.inc",
-    "short_description": "AI-powered terminal-native coding assistant",
-    "screenshot_url": "/screenshots/anysphere.png",
+    "name": "CodeGeeX",
+    "source_url": "https://codegeex.cn/en-US",
+    "short_description": "Multilingual AI coding assistant supporting 20+ programming languages.",
+    "screenshot_url": "/screenshots/codegeex.png",
     "category": "None",
     "type": "enterprise",
     "sector": "AI Coding & App Platforms"
@@ -774,10 +774,10 @@ export const TOOL_DATA = [
   },
   {
     "id": "78",
-    "name": "Tabnine",
-    "source_url": "https://www.tabnine.com/",
-    "short_description": "AI code completion assistant with privacy-first local deployment options for teams and enterprises.",
-    "screenshot_url": "/screenshots/tabnine.png",
+    "name": "Amazon CodeWhisperer",
+    "source_url": "https://aws.amazon.com/codewhisperer/",
+    "short_description": "AI coding companion from AWS with security scanning and code suggestions.",
+    "screenshot_url": "/screenshots/amazon_codewhisperer.png",
     "category": "None",
     "type": "enterprise",
     "sector": "AI Coding & App Platforms"
@@ -864,10 +864,10 @@ export const TOOL_DATA = [
   },
   {
     "id": "87",
-    "name": "Andi",
-    "source_url": "https://andisearch.com/",
-    "short_description": "Conversational AI search engine built on LLMs and real-time data",
-    "screenshot_url": "/screenshots/andi.png",
+    "name": "Seite",
+    "source_url": "https://seite.ai",
+    "short_description": "AI search tool designed for academic research and technical documentation.",
+    "screenshot_url": "/screenshots/seite.png",
     "category": "None",
     "type": "enterprise",
     "sector": "Enterprise Search & QA"
@@ -884,10 +884,10 @@ export const TOOL_DATA = [
   },
   {
     "id": "89",
-    "name": "Klu",
-    "source_url": "http://www.klu.ai",
-    "short_description": "Connects all your tools into a single intelligent search bar with LLM summarization",
-    "screenshot_url": "/screenshots/klu.png",
+    "name": "Slack AI",
+    "source_url": "https://slack.com/features/ai",
+    "short_description": "Built-in AI features for Slack including search, summaries, and insights.",
+    "screenshot_url": "/screenshots/slack_ai.png",
     "category": "None",
     "type": "enterprise",
     "sector": "Enterprise Search & QA"

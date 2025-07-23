@@ -139,7 +139,7 @@ const CollapsibleChatbot = () => {
   return (
     <div className="fixed bottom-5 right-5 w-[600px] h-[1000px] bg-white rounded-lg shadow-xl flex flex-col z-50">
       <div
-        className="bg-blue-600 text-white p-4 rounded-t-lg flex justify-between items-center"
+        className="bg-[#e86f0c] text-white p-4 rounded-t-lg flex justify-between items-center"
         style={{
           backgroundImage: "url('/SIL_bg.jpg')",
           backgroundSize: 'cover',
@@ -162,7 +162,7 @@ const CollapsibleChatbot = () => {
             <div
               className={`inline-block p-3 rounded-lg ${
                 message.role === 'user' 
-                  ? 'bg-blue-600 text-white' 
+                  ? 'bg-[#e86f0c] text-white' 
                   : message.isLoading
                     ? 'bg-gray-100 text-gray-600 animate-pulse'
                     : 'bg-gray-200 text-gray-800'
@@ -201,7 +201,7 @@ const CollapsibleChatbot = () => {
       <div className="px-4 pt-2 text-center">
         <button
           onClick={clearChat}
-          className="text-sm text-blue-600 hover:text-blue-800 focus:outline-none mb-2"
+          className="text-sm text-[#e86f0c] hover:text-[#9f0909] focus:outline-none mb-2"
         >
           Clear Chat
         </button>
@@ -222,7 +222,7 @@ const CollapsibleChatbot = () => {
             className={`p-2 rounded-r ${
               isLoading 
                 ? 'bg-gray-400 cursor-not-allowed' 
-                : 'bg-blue-600 hover:bg-blue-700'
+                : 'bg-[#e86f0c] hover:bg-orange-700'
             } text-white`}
             disabled={isLoading}
           >

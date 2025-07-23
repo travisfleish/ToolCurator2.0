@@ -23,7 +23,7 @@ const ToggleButtons = ({
             ${index === 0 ? "rounded-l-lg" : ""}
             ${index === FILTERS.length - 1 ? "rounded-r-lg" : ""}
             ${selectedFilter === filter.id 
-              ? "bg-blue-600 text-white z-10" 
+              ? "bg-gray-400 text-white z-10" 
               : "bg-white text-gray-800 hover:bg-gray-300"} 
             border border-gray-200
             ${index > 0 && "-ml-px"}

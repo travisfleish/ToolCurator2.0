@@ -39,8 +39,8 @@ const MobileCategoryCard = ({ category, tools, isEnterprise = false }) => {
   return (
     <div className="mb-8 border border-gray-200 rounded-xl shadow-lg bg-white flex flex-col items-center text-center overflow-hidden">
       {/* Category header with improved styling */}
-      <div className="w-full bg-blue-100 py-3 px-4 text-center border-b border-blue-200">
-        <span className="font-bold text-blue-800 text-lg tracking-wide">
+      <div className="w-full bg-black py-3 px-4 text-center border-b border-orange-200">
+        <span className="font-bold text-[#9f0909] text-lg tracking-wide">
           {category}
         </span>
       </div>
@@ -91,7 +91,7 @@ const MobileCategoryCard = ({ category, tools, isEnterprise = false }) => {
 
         {/* Tool counter (e.g., "1/3") - shows actual number */}
         {hasMultipleTools && (
-          <div className="absolute bottom-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full opacity-80">
+          <div className="absolute bottom-2 right-2 bg-gray-400 text-white text-xs px-2 py-1 rounded-full opacity-80">
             {currentToolIndex + 1}/{categoryTools.length}
           </div>
         )}
@@ -102,7 +102,7 @@ const MobileCategoryCard = ({ category, tools, isEnterprise = false }) => {
         <h3 className="text-lg font-bold mb-1.5">
           <a
             href={currentTool.source_url}
-            className="text-blue-600 hover:underline hover:text-blue-700 transition-colors"
+            className="text-black hover:underline hover:text-gray-700 transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -113,7 +113,7 @@ const MobileCategoryCard = ({ category, tools, isEnterprise = false }) => {
 
         {/* Show sector badge for enterprise tools */}
         {isEnterprise && currentTool.sector && (
-          <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mt-1 mb-2">
+          <span className="inline-block bg-black text-[#9f0909] text-xs px-2 py-1 rounded-full mt-1 mb-2">
             {currentTool.sector}
           </span>
         )}
@@ -130,7 +130,7 @@ const MobileCategoryCard = ({ category, tools, isEnterprise = false }) => {
                 key={index}
                 onClick={() => setCurrentToolIndex(index)}
                 className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                  currentToolIndex === index ? 'bg-blue-500 scale-110' : 'bg-gray-300'
+                  currentToolIndex === index ? 'bg-gray-400 scale-110' : 'bg-gray-300'
                 }`}
                 aria-label={`Go to tool ${index + 1}`}
               />

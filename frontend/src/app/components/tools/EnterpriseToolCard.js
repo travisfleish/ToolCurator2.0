@@ -17,8 +17,8 @@ const EnterpriseToolCard = ({ tool, tools = [], category = '' }) => {
   if (displayTools.length === 0) {
     return (
       <div className="relative rounded-lg shadow-md bg-white flex flex-col items-center text-center transform transition-all duration-300 hover:scale-102 hover:shadow-xl overflow-hidden border border-gray-200">
-        <div className="w-full bg-blue-100 py-2 px-3 text-center relative">
-          <span className="font-bold text-blue-800 text-lg">
+        <div className="w-full bg-orange-100 py-2 px-3 text-center relative">
+          <span className="font-bold text-black text-lg">
             {category}
           </span>
         </div>
@@ -60,8 +60,8 @@ const EnterpriseToolCard = ({ tool, tools = [], category = '' }) => {
         onClick={handleCardClick}
       >
         {/* Category header bar */}
-        <div className="w-full bg-blue-100 py-2 px-3 text-center relative">
-          <span className="font-bold text-blue-800 text-lg">
+        <div className="w-full bg-orange-100 py-2 px-3 text-center relative">
+          <span className="font-bold text-black text-lg">
             {category || (currentTool.sector || '')}
           </span>
 
@@ -71,7 +71,7 @@ const EnterpriseToolCard = ({ tool, tools = [], category = '' }) => {
               e.stopPropagation();
               handleOpenModal();
             }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-blue-600 text-white p-1 rounded-full hover:bg-blue-700 transition-colors"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-gray-400 text-white p-1 rounded-full hover:bg-gray-500 transition-colors"
             aria-label="Expand card"
           >
             <Maximize2 size={16} />
@@ -127,7 +127,7 @@ const EnterpriseToolCard = ({ tool, tools = [], category = '' }) => {
 
           {/* Tool counter (e.g., "1/3") - shows actual number */}
           {hasMultipleTools && (
-            <div className="absolute bottom-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full opacity-80">
+            <div className="absolute bottom-2 right-2 bg-gray-400 text-white text-xs px-2 py-1 rounded-full opacity-80">
               {currentToolIndex + 1}/{displayTools.length}
             </div>
           )}
@@ -139,7 +139,7 @@ const EnterpriseToolCard = ({ tool, tools = [], category = '' }) => {
           <h3 className="text-lg font-bold flex items-center justofy-center">
             <a
               href={currentTool.source_url}
-              className="text-blue-600 hover:underline flex items-center"
+              className="text-black hover:underline flex items-center"
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()} // Prevent opening modal when clicking link
@@ -163,7 +163,7 @@ const EnterpriseToolCard = ({ tool, tools = [], category = '' }) => {
                     setCurrentToolIndex(index);
                   }}
                   className={`w-1.5 h-1.5 rounded-full ${
-                    currentToolIndex === index ? 'bg-blue-500' : 'bg-gray-300'
+                    currentToolIndex === index ? 'bg-gray-400' : 'bg-gray-300'
                   }`}
                   aria-label={`Go to tool ${index + 1}`}
                 />

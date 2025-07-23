@@ -160,7 +160,7 @@ const NeuralNetworkBackground = ({ isMobile }) => {
         ctx.beginPath();
         ctx.moveTo(neuronFrom.x, neuronFrom.y);
         ctx.lineTo(neuronTo.x, neuronTo.y);
-        ctx.strokeStyle = 'rgba(60, 80, 170, 0.2)';
+        ctx.strokeStyle = 'rgba(232, 111, 12, 0.2)';
         ctx.lineWidth = 0.5;
         ctx.stroke();
 
@@ -190,8 +190,8 @@ const NeuralNetworkBackground = ({ isMobile }) => {
               signalX, signalY, 0,
               signalX, signalY, 6
             );
-            gradient.addColorStop(0, 'rgba(130, 180, 255, 0.9)');
-            gradient.addColorStop(1, 'rgba(130, 180, 255, 0)');
+            gradient.addColorStop(0, 'rgba(232, 111, 12, 0.9)');
+            gradient.addColorStop(1, 'rgba(232, 111, 12, 0)');
 
             ctx.beginPath();
             ctx.fillStyle = gradient;
@@ -223,9 +223,9 @@ const NeuralNetworkBackground = ({ isMobile }) => {
               neuron.x, neuron.y, 0,
               neuron.x, neuron.y, neuron.size * 5
             );
-            firingGradient.addColorStop(0, 'rgba(220, 240, 255, 0.8)');
-            firingGradient.addColorStop(0.5, 'rgba(120, 180, 255, 0.4)');
-            firingGradient.addColorStop(1, 'rgba(70, 120, 255, 0)');
+            firingGradient.addColorStop(0, 'rgba(255, 200, 180, 0.8)');
+            firingGradient.addColorStop(0.5, 'rgba(232, 111, 12, 0.4)');
+            firingGradient.addColorStop(1, 'rgba(159, 9, 9, 0)');
 
             ctx.beginPath();
             ctx.fillStyle = firingGradient;
@@ -249,8 +249,8 @@ const NeuralNetworkBackground = ({ isMobile }) => {
           neuron.x, neuron.y, 0,
           neuron.x, neuron.y, glowSize * 3
         );
-        gradient.addColorStop(0, `rgba(${50 + activationColor}, ${100 + activationColor}, 255, ${0.1 + neuron.activationState * 0.4})`);
-        gradient.addColorStop(1, 'rgba(70, 120, 255, 0)');
+        gradient.addColorStop(0, `rgba(${159 + activationColor * 0.5}, ${9 + activationColor * 0.3}, ${9 + activationColor * 0.3}, ${0.1 + neuron.activationState * 0.4})`);
+        gradient.addColorStop(1, 'rgba(159, 9, 9, 0)');
 
         ctx.beginPath();
         ctx.fillStyle = gradient;
@@ -259,7 +259,7 @@ const NeuralNetworkBackground = ({ isMobile }) => {
 
         // Cell body
         ctx.beginPath();
-        ctx.fillStyle = `rgba(${100 + activationColor}, ${150 + activationColor}, 255, ${0.3 + neuron.activationState * 0.5})`;
+        ctx.fillStyle = `rgba(${159 + activationColor * 0.6}, ${9 + activationColor * 0.4}, ${9 + activationColor * 0.4}, ${0.3 + neuron.activationState * 0.5})`;
         ctx.arc(neuron.x, neuron.y, glowSize, 0, Math.PI * 2);
         ctx.fill();
       });
@@ -451,7 +451,7 @@ const BlogSection = () => {
         <div className={`text-center ${isMobile ? 'pt-1 pb-4' : 'pb-6 my-8'}`}>
           <h2 className={`${isMobile ? "text-4xl font-bold" : "text-5xl"} flex items-center ${isMobile ? "justify-center" : "justify-center gap-3"}`}
               style={{
-                textShadow: '0 0 15px rgba(100, 150, 255, 0.4)'
+                textShadow: '0 0 15px rgba(232, 111, 12, 0.4)'
               }}>
               {isMobile ? (
                 <div className="flex items-center gap-2">
@@ -469,10 +469,10 @@ const BlogSection = () => {
                 </div>
               ) : (
                 <>
-                  AI Blog - <a href="https://www.twinbrain.ai/blog" target="_blank" rel="noopener noreferrer" className="font-extrabold hover:text-blue-300 transition-colors duration-300">Neural Notes</a> by: {' '}
+                  AI Blog - <a href="https://www.twinbrain.ai/blog" target="_blank" rel="noopener noreferrer" className="font-extrabold hover:text-orange-300 transition-colors duration-300">Neural Notes</a> by: {' '}
                   <a href="https://www.twinbrain.ai" target="_blank" rel="noopener noreferrer"
                     className="relative group">
-                    <div className="absolute inset-0 bg-blue-500/10 rounded-full blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 bg-[#e86f0c]/10 rounded-full blur-xl opacity-0 group-hover:opacity-70 transition-opacity duration-500"></div>
                     <Image
                       src="/TwinBrain_White_Transparent.png"
                       alt="TwinBrain Logo"
@@ -488,7 +488,7 @@ const BlogSection = () => {
 
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#e86f0c]"></div>
             <span className="ml-4 text-gray-300">Loading latest blog posts...</span>
           </div>
         ) : error ? (
@@ -496,7 +496,7 @@ const BlogSection = () => {
             <p className="text-red-400 mb-4">{error}</p>
             <button
               onClick={() => window.location.reload()}
-              className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white"
+              className="px-4 py-2 bg-[#e86f0c] hover:bg-orange-700 rounded text-white"
             >
               Try Again
             </button>
@@ -552,7 +552,7 @@ const BlogSection = () => {
                           background: 'linear-gradient(to bottom, rgba(18, 26, 38, 0.85), rgba(10, 16, 32, 0.9))',
                           borderWidth: '1px',
                           borderStyle: 'solid',
-                          borderImage: 'linear-gradient(to bottom, rgba(100, 150, 240, 0.3), rgba(70, 120, 255, 0.1)) 1'
+                          borderImage: 'linear-gradient(to bottom, rgba(232, 111, 12, 0.3), rgba(159, 9, 9, 0.1)) 1'
                         }}
                       >
                         {/* Image container */}
@@ -603,7 +603,7 @@ const BlogSection = () => {
                             href={blog.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="hover:text-blue-300 transition-colors"
+                            className="hover:text-orange-300 transition-colors"
                           >
                             <h3 className="text-xl font-bold mb-4">{blog.title}</h3>
                           </a>
@@ -613,7 +613,7 @@ const BlogSection = () => {
                           <div className="flex items-center justify-between mt-auto">
                             <a
                               href={blog.url}
-                              className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors text-sm font-medium"
+                              className="inline-flex items-center text-white hover:text-gray-300 transition-colors text-sm font-medium"
                               target="_blank"
                               rel="noopener noreferrer"
                             >
@@ -650,7 +650,7 @@ const BlogSection = () => {
                         key={index}
                         onClick={() => setCurrentIndex(index)}
                         className={`w-2.5 h-2.5 rounded-full transition-colors ${
-                          currentIndex === index ? 'bg-blue-500' : 'bg-gray-500'
+                          currentIndex === index ? 'bg-[#e86f0c]' : 'bg-gray-500'
                         }`}
                         aria-label={`Go to blog ${index + 1}`}
                       />
@@ -669,7 +669,7 @@ const BlogSection = () => {
                       background: 'linear-gradient(to bottom, rgba(18, 26, 38, 0.85), rgba(10, 16, 32, 0.9))',
                       borderWidth: '1px',
                       borderStyle: 'solid',
-                      borderImage: 'linear-gradient(to bottom, rgba(100, 150, 240, 0.3), rgba(70, 120, 255, 0.1)) 1'
+                      borderImage: 'linear-gradient(to bottom, rgba(232, 111, 12, 0.3), rgba(159, 9, 9, 0.1)) 1'
                     }}
                   >
                     {/* Much larger image area - now clickable */}
@@ -719,7 +719,7 @@ const BlogSection = () => {
                         href={blog.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="hover:text-blue-300 transition-colors"
+                        className="hover:text-orange-300 transition-colors"
                       >
                         <h3 className="text-2xl font-bold mb-6">{blog.title}</h3>
                       </a>
@@ -728,7 +728,7 @@ const BlogSection = () => {
                       <div className="flex items-center justify-between mt-auto">
                         <a
                           href={blog.url}
-                          className="inline-flex items-center text-blue-400 hover:text-blue-300 transition-all duration-300 text-lg font-medium group"
+                          className="inline-flex items-center text-white hover:text-gray-300 transition-all duration-300 text-lg font-medium group"
                           target="_blank"
                           rel="noopener noreferrer"
                         >

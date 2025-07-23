@@ -35,7 +35,7 @@ const MobileMenu = ({ isOpen, onClose, headerRef, navItems }) => {
       <div
         className="h-full"
         style={{
-          background: 'linear-gradient(to right, #4facfe 0%, #6a67fe 100%)'
+          background: 'linear-gradient(to right, #e86f0c 0%, #9f0909 100%)'
         }}
       >
         {/* EXACT COPY OF HEADER STRUCTURE */}
@@ -63,7 +63,7 @@ const MobileMenu = ({ isOpen, onClose, headerRef, navItems }) => {
             <h1 className={`${inter.className} text-4xl leading-tight mb-4 tracking-tight`}>
               <span className="font-normal text-white">Tool</span>
               <span className="font-bold text-white">Curator</span>
-              <span className="font-bold text-yellow-300">.ai</span>
+              <span className="font-bold text-gray-400">.ai</span>
             </h1>
             {/* Subtitle removed as requested */}
           </div>

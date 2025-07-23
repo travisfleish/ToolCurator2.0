@@ -102,7 +102,7 @@ const MobileHeader = () => {
       <>
         <span className="font-normal text-white">{toolPart}</span>
         {curatorPart && <span className="font-bold text-white">{curatorPart}</span>}
-        {aiPart && <span className="font-bold text-yellow-300">{aiPart}</span>}
+        {aiPart && <span className="font-bold text-gray-400">{aiPart}</span>}
         {!typingComplete && <span className="inline-block w-[2px] h-[1em] bg-white ml-1 animate-[blink_1s_step-end_infinite]"></span>}
       </>
     );
@@ -115,7 +115,7 @@ const MobileHeader = () => {
       style={{
         position: 'relative',
         overflow: 'hidden',
-        background: 'linear-gradient(to right, #4facfe 0%, #6a67fe 100%)'
+        background: 'linear-gradient(to right, #e86f0c 0%, #9f0909 100%)'
       }}
     >
       {/* Content container */}

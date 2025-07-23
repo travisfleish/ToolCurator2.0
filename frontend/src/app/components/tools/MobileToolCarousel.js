@@ -65,8 +65,8 @@ const MobileToolCarousel = ({
       <div className="w-full flex justify-center px-8">
         <div className="w-full p-4 border rounded-lg shadow-lg bg-white flex flex-col items-center text-center">
           {/* Category Header */}
-          <div className="w-full bg-blue-100 py-2 px-3 text-center mb-4">
-            <span className="font-bold text-blue-800 text-lg">
+          <div className="w-full bg-orange-100 py-2 px-3 text-center mb-4">
+            <span className="font-bold text-[#9f0909] text-lg">
               {currentCategoryGroup?.category}
             </span>
           </div>
@@ -82,7 +82,7 @@ const MobileToolCarousel = ({
               <h3 className="text-lg font-bold flex items-center justify-center">
                 <a
                   href={currentTool.source_url}
-                  className="text-blue-600 hover:underline"
+                  className="text-black hover:underline"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -92,7 +92,7 @@ const MobileToolCarousel = ({
               </h3>
 
               {/* Category/Sector Badge */}
-              <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mt-1 mb-2">
+              <span className="inline-block bg-orange-100 text-[#9f0909] text-xs px-2 py-1 rounded-full mt-1 mb-2">
                 {selectedFilter === 'personal'
                   ? currentTool.category
                   : currentTool.sector}
@@ -123,7 +123,7 @@ const MobileToolCarousel = ({
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-2 h-2 rounded-full ${currentSlide === index ? 'bg-blue-500' : 'bg-gray-300'}`}
+            className={`w-2 h-2 rounded-full ${currentSlide === index ? 'bg-gray-400' : 'bg-gray-300'}`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}

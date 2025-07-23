@@ -108,8 +108,8 @@ const CardModal = ({
           className="bg-white rounded-lg shadow-xl w-full max-h-[90vh] overflow-hidden flex flex-col animate-fadeIn"
         >
           {/* Header with category */}
-          <div className="w-full bg-blue-100 py-3 px-4 flex justify-between items-center sticky top-0">
-            <span className="font-bold text-blue-800 text-xl">
+          <div className="w-full bg-orange-100 py-3 px-4 flex justify-between items-center sticky top-0">
+            <span className="font-bold text-[#9f0909] text-xl">
               {category}
             </span>
 
@@ -136,7 +136,7 @@ const CardModal = ({
 
               {/* Tool counter (e.g., "1/3") - positioned exactly like in card */}
               {hasMultipleTools && (
-                <div className="absolute bottom-2 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full opacity-80">
+                <div className="absolute bottom-2 right-2 bg-[#e86f0c] text-white text-xs px-2 py-1 rounded-full opacity-80">
                   {currentToolIndex + 1}/{tools.length}
                 </div>
               )}
@@ -149,7 +149,7 @@ const CardModal = ({
                 <h2 className="text-2xl font-bold flex items-center justify-center mb-4">
                   <a
                     href={currentTool.source_url}
-                    className="text-blue-600 hover:underline flex items-center"
+                    className="text-black hover:underline flex items-center"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

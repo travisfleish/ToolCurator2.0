@@ -30,7 +30,7 @@ const NewsletterSection = ({ variant = "fixed", onClose }) => {
   }, []);
 
   return (
-    <section id="newsletter-section" className="w-full bg-blue-600 pt-16 pb-16 mt-10 relative overflow-hidden">
+    <section id="newsletter-section" className="w-full bg-[#e86f0c] pt-16 pb-16 mt-10 relative overflow-hidden">
 
       {/* Background pattern */}
       <div
@@ -80,7 +80,7 @@ const NewsletterSection = ({ variant = "fixed", onClose }) => {
               />
               <button
                 type="submit"
-                className="px-4 py-3 bg-yellow-500 text-white font-bold rounded-lg hover:bg-yellow-600 transition shadow-md w-full sm:w-auto whitespace-nowrap"
+                className="px-4 py-3 bg-[#9f0909] text-white font-bold rounded-lg hover:bg-[#7a0707] transition shadow-md w-full sm:w-auto whitespace-nowrap"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Submitting..." : "Get Weekly Tools"}

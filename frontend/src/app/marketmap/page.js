@@ -229,7 +229,7 @@ export default function MarketMapPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#2a50a3" }}>
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#9f0909" }}>
       {/* Conditionally render either the custom mobile header or the original desktop header */}
       {isMobile ? (
         /* Mobile Header - use the CustomMobileHeader component */
@@ -278,9 +278,9 @@ export default function MarketMapPage() {
 
               {/* Navigation links */}
               <nav className="hidden sm:flex gap-6 mr-10 text-lg text-white font-semibold">
-                <Link href="/" className="hover:text-blue-300 transition-colors">Home</Link>
-                <Link href="/marketmap" className="text-blue-300">AI Marketmap</Link>
-                <a href="https://www.twinbrain.ai/blog" target="_blank" rel="noopener noreferrer" className="hover:text-blue-300 transition-colors">AI Blog</a>
+                <Link href="/" className="hover:text-orange-300 transition-colors">Home</Link>
+                <Link href="/marketmap" className="text-orange-300">AI Marketmap</Link>
+                <a href="https://www.twinbrain.ai/blog" target="_blank" rel="noopener noreferrer" className="hover:text-orange-300 transition-colors">AI Blog</a>
               </nav>
             </div>
 
@@ -295,7 +295,7 @@ export default function MarketMapPage() {
                 <div className="mt-4">
                   <button
                     onClick={toggleMagnifier}
-                    className={`px-4 py-2 rounded-lg transition-colors ${magnifierEnabled ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-blue-600 hover:bg-blue-700'} text-white font-semibold shadow-md cursor-pointer`}
+                    className={`px-4 py-2 rounded-lg transition-colors ${magnifierEnabled ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-[#e86f0c] hover:bg-orange-700'} text-white font-semibold shadow-md cursor-pointer`}
                   >
                     {magnifierEnabled ? 'Disable Magnifying Glass' : 'Enable Magnifying Glass'}
                   </button>
@@ -306,13 +306,13 @@ export default function MarketMapPage() {
         </header>
       )}
 
-      {/* For mobile, add padding between header and map using the #213f99 color */}
+      {/* For mobile, add padding between header and map using the #7a0707 color */}
       {isMobile && (
-        <div className="w-full h-6" style={{ backgroundColor: "#213f99" }}></div>
+        <div className="w-full h-6" style={{ backgroundColor: "#7a0707" }}></div>
       )}
 
       {/* Main content - unchanged */}
-      <main className="w-full flex flex-col flex-1" style={{ backgroundColor: "#2a50a3" }}>
+      <main className="w-full flex flex-col flex-1" style={{ backgroundColor: "#9f0909" }}>
         {/* Interactive SVG Map */}
         <ScrollAnimation animation="fade-up" delay={200} duration={1000}>
           <div className="w-full">
@@ -378,15 +378,15 @@ export default function MarketMapPage() {
 
         {/* Instructions for mobile users - Reduced width and more spacing */}
         {isMobile && (
-          <div className="text-center mx-auto mt-8 p-4 bg-blue-50 rounded-lg shadow-sm" style={{ maxWidth: "85%" }}>
-            <p className="text-blue-800">
+          <div className="text-center mx-auto mt-8 p-4 bg-orange-50 rounded-lg shadow-sm" style={{ maxWidth: "85%" }}>
+            <p className="text-[#9f0909]">
               Download the PDF version of below.
             </p>
           </div>
         )}
 
         {/* Extended area with download button - reduced space before Blog section */}
-        <div className={`${isMobile ? 'py-8 pb-6' : 'py-16'} relative`} style={{ backgroundColor: "#2a50a3" }}>
+        <div className={`${isMobile ? 'py-8 pb-6' : 'py-16'} relative`} style={{ backgroundColor: "#9f0909" }}>
           {/* Center the button */}
           <div className="flex justify-center">
             <button

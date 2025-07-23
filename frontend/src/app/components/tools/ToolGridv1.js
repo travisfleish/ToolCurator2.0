@@ -102,7 +102,7 @@
 //               key={index}
 //               onClick={() => setCurrentIndex(index)}
 //               className={`w-2.5 h-2.5 rounded-full transition-colors ${
-//                 currentIndex === index ? 'bg-blue-500' : 'bg-gray-300'
+//                 currentIndex === index ? 'bg-gray-400' : 'bg-gray-300'
 //               }`}
 //               aria-label={`Go to tool ${index + 1}`}
 //             />
@@ -142,8 +142,8 @@
 //   return (
 //     <div className="mb-8 border border-gray-200 rounded-xl shadow-lg bg-white flex flex-col items-center text-center overflow-hidden">
 //       {/* Category header with improved styling */}
-//       <div className="w-full bg-blue-100 py-3 px-4 text-center border-b border-blue-200">
-//         <span className="font-bold text-blue-800 text-lg tracking-wide">
+//       <div className="w-full bg-orange-100 py-3 px-4 text-center border-b border-orange-200">
+//         <span className="font-bold text-[#9f0909] text-lg tracking-wide">
 //           {category}
 //         </span>
 //       </div>
@@ -194,7 +194,7 @@
 //
 //         {/* Tool counter (e.g., "1/3") - improved styling */}
 //         {hasMultipleTools && (
-//           <div className="absolute bottom-2 right-2 bg-blue-600 text-white text-xs px-2.5 py-1 rounded-full shadow-sm">
+//           <div className="absolute bottom-2 right-2 bg-gray-400 text-white text-xs px-2.5 py-1 rounded-full shadow-sm">
 //             {currentToolIndex + 1}/{categoryTools.length}
 //           </div>
 //         )}
@@ -205,7 +205,7 @@
 //         <h3 className="text-lg font-bold mb-1.5">
 //           <a
 //             href={currentTool.source_url}
-//             className="text-blue-600 hover:underline hover:text-blue-700 transition-colors"
+//             className="text-black hover:underline hover:text-gray-700 transition-colors"
 //             target="_blank"
 //             rel="noopener noreferrer"
 //           >
@@ -225,7 +225,7 @@
 //                 key={index}
 //                 onClick={() => setCurrentToolIndex(index)}
 //                 className={`w-2 h-2 rounded-full transition-all duration-200 ${
-//                   currentToolIndex === index ? 'bg-blue-500 scale-110' : 'bg-gray-300'
+//                   currentToolIndex === index ? 'bg-gray-400 scale-110' : 'bg-gray-300'
 //                 }`}
 //                 aria-label={`Go to tool ${index + 1}`}
 //               />
@@ -322,7 +322,7 @@
 //         {/* Content section */}
 //         <div className="p-4 w-full">
 //           <h3 className="text-lg font-bold">{tool.name}</h3>
-//           <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mt-1 mb-2">
+//           <span className="inline-block bg-orange-100 text-[#9f0909] text-xs px-2 py-1 rounded-full mt-1 mb-2">
 //             {selectedFilter === 'personal'
 //               ? tool.category ||
 //                 DEMO_CATEGORIES[index % DEMO_CATEGORIES.length]

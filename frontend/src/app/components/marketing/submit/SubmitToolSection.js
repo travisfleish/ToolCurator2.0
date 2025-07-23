@@ -99,21 +99,21 @@ const SubmitToolSection = () => {
             </p>
             <div className="flex justify-center space-x-4 mb-8">
               <div className="flex items-center">
-                <div className="bg-blue-500 rounded-full w-8 h-8 flex items-center justify-center text-white font-semibold">
+                <div className="bg-[#e86f0c] rounded-full w-8 h-8 flex items-center justify-center text-white font-semibold">
                   1
                 </div>
                 <span className="ml-2 text-gray-700">Complete the form</span>
               </div>
               <ArrowRight className="text-gray-400" />
               <div className="flex items-center">
-                <div className="bg-blue-500 rounded-full w-8 h-8 flex items-center justify-center text-white font-semibold">
+                <div className="bg-[#e86f0c] rounded-full w-8 h-8 flex items-center justify-center text-white font-semibold">
                   2
                 </div>
                 <span className="ml-2 text-gray-700">We review your submission</span>
               </div>
               <ArrowRight className="text-gray-400" />
               <div className="flex items-center">
-                <div className="bg-blue-500 rounded-full w-8 h-8 flex items-center justify-center text-white font-semibold">
+                <div className="bg-[#e86f0c] rounded-full w-8 h-8 flex items-center justify-center text-white font-semibold">
                   3
                 </div>
                 <span className="ml-2 text-gray-700">Tool gets listed</span>
@@ -135,7 +135,7 @@ const SubmitToolSection = () => {
               </p>
               <button
                 onClick={() => setIsSuccess(false)}
-                className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition shadow-md"
+                className="px-6 py-3 bg-[#e86f0c] text-white font-semibold rounded-lg hover:bg-orange-700 transition shadow-md"
               >
                 Submit Another Tool
               </button>
@@ -162,7 +162,7 @@ const SubmitToolSection = () => {
                         value={formData.toolName}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#e86f0c] focus:border-transparent"
                         placeholder="e.g., AI Content Generator"
                       />
                     </div>
@@ -178,7 +178,7 @@ const SubmitToolSection = () => {
                         value={formData.websiteUrl}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#e86f0c] focus:border-transparent"
                         placeholder="https://example.com"
                       />
                     </div>
@@ -196,7 +196,7 @@ const SubmitToolSection = () => {
                       onChange={handleChange}
                       required
                       maxLength={100}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#e86f0c] focus:border-transparent"
                       placeholder="A brief one-line description of your tool"
                     />
                   </div>
@@ -212,7 +212,7 @@ const SubmitToolSection = () => {
                       onChange={handleChange}
                       required
                       rows={4}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#e86f0c] focus:border-transparent"
                       placeholder="Provide a detailed description of what your tool does, key features, and benefits"
                     />
                   </div>
@@ -229,7 +229,7 @@ const SubmitToolSection = () => {
                           value={formData.category}
                           onChange={handleChange}
                           required
-                          className="appearance-none w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="appearance-none w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#e86f0c] focus:border-transparent"
                         >
                           <option value="" disabled>Select a category</option>
                           {categories.map(category => (
@@ -251,7 +251,7 @@ const SubmitToolSection = () => {
                           value={formData.pricingModel}
                           onChange={handleChange}
                           required
-                          className="appearance-none w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          className="appearance-none w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#e86f0c] focus:border-transparent"
                         >
                           <option value="" disabled>Select pricing model</option>
                           {pricingModels.map(model => (
@@ -274,7 +274,7 @@ const SubmitToolSection = () => {
                         name="imageUrl"
                         value={formData.imageUrl}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 rounded-l-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#e86f0c] focus:border-transparent"
                         placeholder="https://example.com/image.png"
                       />
                       <button
@@ -308,7 +308,7 @@ const SubmitToolSection = () => {
                         value={formData.submitterName}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#e86f0c] focus:border-transparent"
                         placeholder="John Doe"
                       />
                     </div>
@@ -324,7 +324,7 @@ const SubmitToolSection = () => {
                         value={formData.submitterEmail}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#e86f0c] focus:border-transparent"
                         placeholder="john@example.com"
                       />
                       <p className="text-xs text-gray-500 mt-1">
@@ -346,7 +346,7 @@ const SubmitToolSection = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition shadow-md flex items-center ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                    className={`px-6 py-3 bg-[#e86f0c] text-white font-semibold rounded-lg hover:bg-orange-700 transition shadow-md flex items-center ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                   >
                     {isSubmitting ? (
                       <>

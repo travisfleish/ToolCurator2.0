@@ -50,7 +50,7 @@ const Dropdown = ({
   const buttonClass = `flex justify-center items-center w-full 
                       ${isMobile ? 'px-2 py-2 text-sm' : 'px-4 py-3 text-lg'} font-bold
                       border border-gray-300 rounded-lg shadow-md
-                      ${isActive ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900 hover:bg-gray-200"}
+                      ${isActive ? "bg-[#e86f0c] text-white" : "bg-gray-100 text-gray-900 hover:bg-gray-200"}
                       transition whitespace-nowrap`;
 
   // Width style based on the provided width or mobile default
@@ -84,7 +84,7 @@ const Dropdown = ({
               className={`block w-full text-left 
                         ${isMobile ? 'px-2 py-2 text-xs' : 'px-4 py-3 text-base'} 
                         hover:bg-gray-100 whitespace-nowrap
-                        ${selectedValue === option.id ? "bg-blue-50 font-bold" : ""}`}
+                        ${selectedValue === option.id ? "bg-orange-50 font-bold" : ""}`}
             >
               {isMobile && option.mobileName ? option.mobileName : option.name}
             </button>

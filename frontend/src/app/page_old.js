@@ -34,8 +34,8 @@ const CategoryCard = ({ category, tools, categoryIndex, demoCategories }) => {
   if (categoryTools.length === 0) {
     return (
       <div className="relative rounded-lg shadow-md bg-white flex flex-col items-center text-center transform transition-all duration-300 hover:scale-105 hover:shadow-xl overflow-hidden border border-gray-200">
-        <div className="w-full bg-blue-100 py-2 px-3 text-center mb-2">
-          <span className="font-bold text-blue-800 text-lg">
+        <div className="w-full bg-orange-100 py-2 px-3 text-center mb-2">
+          <span className="font-bold text-[#9f0909] text-lg">
             {category}
           </span>
         </div>
@@ -63,8 +63,8 @@ const CategoryCard = ({ category, tools, categoryIndex, demoCategories }) => {
   return (
     <div className="relative rounded-lg shadow-md bg-white flex flex-col items-center text-center transform transition-all duration-300 hover:scale-105 hover:shadow-xl overflow-hidden border border-gray-200">
       {/* Category header bar */}
-      <div className="w-full bg-blue-100 py-2 px-3 text-center mb-2">
-        <span className="font-bold text-blue-800 text-lg">
+      <div className="w-full bg-orange-100 py-2 px-3 text-center mb-2">
+        <span className="font-bold text-[#9f0909] text-lg">
           {category}
         </span>
       </div>
@@ -118,7 +118,7 @@ const CategoryCard = ({ category, tools, categoryIndex, demoCategories }) => {
 
           {/* Tool counter (e.g., "1/3") - shows actual number */}
           {hasMultipleTools && (
-            <div className="absolute bottom-6 right-2 bg-blue-600 text-white text-xs px-2 py-1 rounded-full opacity-80">
+            <div className="absolute bottom-6 right-2 bg-[#e86f0c] text-white text-xs px-2 py-1 rounded-full opacity-80">
               {currentToolIndex + 1}/{displayTools.length}
             </div>
           )}
@@ -126,7 +126,7 @@ const CategoryCard = ({ category, tools, categoryIndex, demoCategories }) => {
 
         {/* Tool name and link */}
         <h3 className="text-lg font-bold flex items-center">
-          <a href={currentTool.source_url} className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
+          <a href={currentTool.source_url} className="text-black hover:underline" target="_blank" rel="noopener noreferrer">
             {currentTool.name}
           </a>
           <ExternalLink className="ml-2 w-4 h-4 text-gray-500" />
@@ -146,7 +146,7 @@ const CategoryCard = ({ category, tools, categoryIndex, demoCategories }) => {
                   setCurrentToolIndex(index);
                 }}
                 className={`w-1.5 h-1.5 rounded-full ${
-                  currentToolIndex === index ? 'bg-blue-500' : 'bg-gray-300'
+                  currentToolIndex === index ? 'bg-[#e86f0c]' : 'bg-gray-300'
                 }`}
                 aria-label={`Go to tool ${index + 1}`}
               />
@@ -168,7 +168,7 @@ const EnterpriseToolCard = ({ tool }) => {
   return (
     <div className="relative rounded-lg shadow-md bg-white flex flex-col items-center text-center transform transition-all duration-300 hover:scale-105 hover:shadow-xl overflow-hidden border border-gray-200">
       {tool.certified && (
-        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 flex items-center space-x-2 bg-yellow-500 text-white font-bold text-sm px-3 py-1 rounded-full shadow-lg">
+        <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 flex items-center space-x-2 bg-[#9f0909] text-white font-bold text-sm px-3 py-1 rounded-full shadow-lg">
         </div>
       )}
 
@@ -187,7 +187,7 @@ const EnterpriseToolCard = ({ tool }) => {
 
         {/* Tool name and link */}
         <h3 className="text-lg font-bold flex items-center">
-          <a href={tool.source_url} className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
+          <a href={tool.source_url} className="text-black hover:underline" target="_blank" rel="noopener noreferrer">
             {tool.name}
           </a>
           <ExternalLink className="ml-2 w-4 h-4 text-gray-500" />
@@ -195,7 +195,7 @@ const EnterpriseToolCard = ({ tool }) => {
 
         {/* Sector badge */}
         {tool.sector && (
-          <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mt-1 mb-2">
+          <span className="inline-block bg-orange-100 text-[#9f0909] text-xs px-2 py-1 rounded-full mt-1 mb-2">
             {tool.sector}
           </span>
         )}
@@ -502,7 +502,7 @@ const FullScreenSponsorCarousel = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center">
       <button
         onClick={onClose}
-        className="absolute top-4 right-4 text-white hover:text-blue-400 transition z-10"
+        className="absolute top-4 right-4 text-white hover:text-orange-400 transition z-10"
       >
         <X size={32} />
       </button>
@@ -511,7 +511,7 @@ const FullScreenSponsorCarousel = ({ isOpen, onClose }) => {
         <h2 className={`${inter.className} text-3xl font-bold text-white mb-2`}>
           Our Partners
         </h2>
-        <p className="text-blue-400">
+        <p className="text-black">
           Powering sports innovation together
         </p>
       </div>
@@ -785,7 +785,7 @@ export default function Home() {
         {/* Mobile Dropdown - The menu needs to have the same styling for consistency */}
         {menuOpen && (
           <div
-            className="absolute top-0 left-0 right-0 text-white z-40 px-4 shadow-md border-b border-blue-500 overflow-y-auto"
+            className="absolute top-0 left-0 right-0 text-white z-40 px-4 shadow-md border-b border-[#e86f0c] overflow-y-auto"
             style={{
               height: headerRef.current ? `${headerRef.current.offsetHeight}px` : '100%',
               backgroundImage: "url('/SIL_bg.jpg')",
@@ -866,7 +866,7 @@ export default function Home() {
                 ${index === 0 ? "rounded-l-lg" : ""}
                 ${index === FILTERS.length - 1 ? "rounded-r-lg" : ""}
                 ${selectedFilter === filter.id 
-                  ? "bg-blue-600 text-white z-10" 
+                  ? "bg-[#e86f0c] text-white z-10" 
                   : "bg-white text-gray-900 hover:bg-gray-300"}
                 border border-gray-300
                 ${index > 0 && "-ml-px"}
@@ -894,7 +894,7 @@ export default function Home() {
                 ${index === 0 ? "rounded-l-lg" : ""}
                 ${index === CATEGORIES.length - 1 ? "rounded-r-lg" : ""}
                 ${selectedCategory === category.id 
-                  ? "bg-blue-600 text-white z-10" 
+                  ? "bg-[#e86f0c] text-white z-10" 
                   : "bg-gray-150 text-gray-900 hover:bg-gray-300"}
                 ${index > 0 && "-ml-px"}
                 transition
@@ -930,7 +930,7 @@ export default function Home() {
                   className={`w-full p-4 border rounded-lg shadow-lg bg-white flex flex-col items-center text-center ${tools[currentSlide]?.certified ? "border-4 border-yellow-500" : ""}`}
                 >
                   {tools[currentSlide]?.certified && (
-                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 flex items-center space-x-2 bg-yellow-500 text-white font-bold text-sm px-3 py-1 rounded-full shadow-lg">
+                    <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 flex items-center space-x-2 bg-[#9f0909] text-white font-bold text-sm px-3 py-1 rounded-full shadow-lg">
                     </div>
                   )}
                   <img
@@ -939,18 +939,18 @@ export default function Home() {
                     className="w-full h-auto rounded-lg mb-4"
                   />
                   <h3 className={`${inter.className} text-lg font-bold flex items-center justify-center`}>
-                    <a href={tools[currentSlide]?.source_url} className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
+                    <a href={tools[currentSlide]?.source_url} className="text-black hover:underline" target="_blank" rel="noopener noreferrer">
                       {tools[currentSlide]?.name}
                     </a>
                     <ExternalLink className="ml-2 w-4 h-4 text-gray-500" />
                   </h3>
 
                   {selectedFilter === 'personal' ? (
-                    <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mt-1 mb-2">
+                    <span className="inline-block bg-orange-100 text-[#9f0909] text-xs px-2 py-1 rounded-full mt-1 mb-2">
                       {tools[currentSlide]?.category || DEMO_CATEGORIES[currentSlide % DEMO_CATEGORIES.length]}
                     </span>
                   ) : (
-                    <span className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full mt-1 mb-2">
+                    <span className="inline-block bg-orange-100 text-[#9f0909] text-xs px-2 py-1 rounded-full mt-1 mb-2">
                       {tools[currentSlide]?.sector || ""}
                     </span>
                   )}
@@ -977,7 +977,7 @@ export default function Home() {
                 <button
                   key={index}
                   onClick={() => setCurrentSlide(index)}
-                  className={`w-2 h-2 rounded-full ${currentSlide === index ? 'bg-blue-500' : 'bg-gray-300'}`}
+                  className={`w-2 h-2 rounded-full ${currentSlide === index ? 'bg-[#e86f0c]' : 'bg-gray-300'}`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
               ))}
@@ -1050,7 +1050,7 @@ export default function Home() {
               />
               <button
                 type="submit"
-                className="px-6 py-3 bg-yellow-500 text-white font-bold rounded-lg hover:bg-yellow-600 transition shadow-md w-full sm:w-auto whitespace-nowrap"
+                className="px-6 py-3 bg-[#9f0909] text-white font-bold rounded-lg hover:bg-[#7a0707] transition shadow-md w-full sm:w-auto whitespace-nowrap"
               >
                 Request Now
               </button>
@@ -1108,7 +1108,7 @@ export default function Home() {
     {/*          />*/}
     {/*          <button*/}
     {/*            type="submit"*/}
-    {/*            className="px-6 py-3 bg-yellow-500 text-white font-bold rounded-lg hover:bg-yellow-600 transition shadow-md w-full sm:w-auto whitespace-nowrap"*/}
+    {/*            className="px-6 py-3 bg-[#9f0909] text-white font-bold rounded-lg hover:bg-[#7a0707] transition shadow-md w-full sm:w-auto whitespace-nowrap"*/}
     {/*            style={{*/}
     {/*              animation: 'pulse 2s infinite',*/}
     {/*            }}*/}

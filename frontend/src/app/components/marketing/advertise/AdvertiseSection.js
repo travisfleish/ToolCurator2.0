@@ -109,24 +109,24 @@ const AdvertiseSection = () => {
           {/* Audience Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             <div className="bg-white p-6 rounded-xl shadow-md text-center">
-              <div className="mx-auto w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                <Users size={28} className="text-blue-600" />
+              <div className="mx-auto w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                <Users size={28} className="text-[#e86f0c]" />
               </div>
               <h3 className="text-2xl font-bold text-gray-800 mb-2">15,000+</h3>
               <p className="text-gray-600">Monthly Unique Visitors</p>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-md text-center">
-              <div className="mx-auto w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                <BarChart size={28} className="text-blue-600" />
+              <div className="mx-auto w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                <BarChart size={28} className="text-[#e86f0c]" />
               </div>
               <h3 className="text-2xl font-bold text-gray-800 mb-2">4.7%</h3>
               <p className="text-gray-600">Average Click-Through Rate</p>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-md text-center">
-              <div className="mx-auto w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-                <Zap size={28} className="text-blue-600" />
+              <div className="mx-auto w-14 h-14 bg-orange-100 rounded-full flex items-center justify-center mb-4">
+                <Zap size={28} className="text-[#e86f0c]" />
               </div>
               <h3 className="text-2xl font-bold text-gray-800 mb-2">82%</h3>
               <p className="text-gray-600">Tech Decision Makers</p>
@@ -142,12 +142,12 @@ const AdvertiseSection = () => {
                 key={index}
                 className={`rounded-xl overflow-hidden ${
                   plan.highlighted 
-                    ? 'shadow-xl border-2 border-blue-500 relative' 
+                    ? 'shadow-xl border-2 border-[#e86f0c] relative' 
                     : 'shadow-md border border-gray-200'
                 }`}
               >
                 {plan.highlighted && (
-                  <div className="absolute top-0 inset-x-0 bg-blue-500 text-white text-center py-1 text-sm font-medium">
+                  <div className="absolute top-0 inset-x-0 bg-[#e86f0c] text-white text-center py-1 text-sm font-medium">
                     Most Popular
                   </div>
                 )}
@@ -162,7 +162,7 @@ const AdvertiseSection = () => {
                   <div className="space-y-3 mb-6">
                     {plan.features.map((feature, i) => (
                       <div key={i} className="flex items-center">
-                        <CheckCircle size={18} className="text-blue-500 mr-2 flex-shrink-0" />
+                        <CheckCircle size={18} className="text-[#e86f0c] mr-2 flex-shrink-0" />
                         <span className="text-gray-600">{feature}</span>
                       </div>
                     ))}
@@ -171,7 +171,7 @@ const AdvertiseSection = () => {
                   <button
                     className={`w-full py-2 px-4 rounded-lg font-medium ${
                       plan.highlighted 
-                        ? 'bg-blue-600 text-white hover:bg-blue-700'
+                        ? 'bg-[#e86f0c] text-white hover:bg-orange-700'
                         : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
                     } transition duration-200`}
                   >
@@ -196,7 +196,7 @@ const AdvertiseSection = () => {
               </p>
               <button
                 onClick={() => setIsSuccess(false)}
-                className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition shadow-md"
+                className="px-6 py-3 bg-[#e86f0c] text-white font-semibold rounded-lg hover:bg-orange-700 transition shadow-md"
               >
                 Submit Another Request
               </button>
@@ -219,7 +219,7 @@ const AdvertiseSection = () => {
                       value={formData.companyName}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#e86f0c] focus:border-transparent"
                       placeholder="Your Company"
                     />
                   </div>
@@ -235,7 +235,7 @@ const AdvertiseSection = () => {
                       value={formData.contactName}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#e86f0c] focus:border-transparent"
                       placeholder="Your Name"
                     />
                   </div>
@@ -253,7 +253,7 @@ const AdvertiseSection = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#e86f0c] focus:border-transparent"
                       placeholder="you@example.com"
                     />
                   </div>
@@ -269,7 +269,7 @@ const AdvertiseSection = () => {
                       value={formData.website}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#e86f0c] focus:border-transparent"
                       placeholder="https://example.com"
                     />
                   </div>
@@ -286,7 +286,7 @@ const AdvertiseSection = () => {
                     onChange={handleChange}
                     required
                     rows={3}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#e86f0c] focus:border-transparent"
                     placeholder="Tell us about your AI tool in a few sentences"
                   />
                 </div>
@@ -302,7 +302,7 @@ const AdvertiseSection = () => {
                       value={formData.budget}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#e86f0c] focus:border-transparent"
                     >
                       <option value="" disabled>Select a budget range</option>
                       <option value="$250 - $500">$250 - $500</option>
@@ -325,7 +325,7 @@ const AdvertiseSection = () => {
                           value="short-term"
                           checked={formData.timeframe === 'short-term'}
                           onChange={handleChange}
-                          className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                          className="h-4 w-4 text-[#e86f0c] focus:ring-[#e86f0c]"
                         />
                         <label htmlFor="short-term" className="ml-2 text-gray-700">
                           Short-term (1-3 months)
@@ -339,7 +339,7 @@ const AdvertiseSection = () => {
                           value="long-term"
                           checked={formData.timeframe === 'long-term'}
                           onChange={handleChange}
-                          className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                          className="h-4 w-4 text-[#e86f0c] focus:ring-[#e86f0c]"
                         />
                         <label htmlFor="long-term" className="ml-2 text-gray-700">
                           Long-term (6+ months)
@@ -353,7 +353,7 @@ const AdvertiseSection = () => {
                           value="not-sure"
                           checked={formData.timeframe === 'not-sure'}
                           onChange={handleChange}
-                          className="h-4 w-4 text-blue-600 focus:ring-blue-500"
+                          className="h-4 w-4 text-[#e86f0c] focus:ring-[#e86f0c]"
                         />
                         <label htmlFor="not-sure" className="ml-2 text-gray-700">
                           Not sure yet
@@ -373,7 +373,7 @@ const AdvertiseSection = () => {
                     value={formData.goals}
                     onChange={handleChange}
                     rows={2}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#e86f0c] focus:border-transparent"
                     placeholder="What are you hoping to achieve with your advertising campaign?"
                   />
                 </div>
@@ -390,7 +390,7 @@ const AdvertiseSection = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition shadow-md flex items-center ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                    className={`px-6 py-3 bg-[#e86f0c] text-white font-semibold rounded-lg hover:bg-orange-700 transition shadow-md flex items-center ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                   >
                     {isSubmitting ? (
                       <>
@@ -415,8 +415,8 @@ const AdvertiseSection = () => {
           <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-white p-6 rounded-xl shadow-md">
               <div className="flex items-center mb-4">
-                <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                  <span className="text-blue-600 font-bold">AC</span>
+                <div className="h-12 w-12 rounded-full bg-orange-100 flex items-center justify-center mr-3">
+                  <span className="text-[#e86f0c] font-bold">AC</span>
                 </div>
                 <div>
                   <h4 className="font-semibold">Alex Chen</h4>
@@ -430,8 +430,8 @@ const AdvertiseSection = () => {
 
             <div className="bg-white p-6 rounded-xl shadow-md">
               <div className="flex items-center mb-4">
-                <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                  <span className="text-blue-600 font-bold">MJ</span>
+                <div className="h-12 w-12 rounded-full bg-orange-100 flex items-center justify-center mr-3">
+                  <span className="text-[#e86f0c] font-bold">MJ</span>
                 </div>
                 <div>
                   <h4 className="font-semibold">Maya Johnson</h4>

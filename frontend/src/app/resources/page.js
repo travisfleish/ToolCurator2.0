@@ -13,7 +13,7 @@
 //       <p className="text-gray-600 mb-4 text-sm">{resource.description}</p>
 //
 //       <div className="flex flex-wrap gap-2 mb-4">
-//         <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
+//         <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-orange-100 text-[#9f0909]">
 //           {resource.source}
 //         </span>
 //         <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-700">
@@ -32,7 +32,7 @@
 //         href={resource.url}
 //         target="_blank"
 //         rel="noopener noreferrer"
-//         className="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium text-sm"
+//         className="inline-flex items-center text-[#e86f0c] hover:text-[#9f0909] font-medium text-sm"
 //       >
 //         View Resource <ExternalLink size={14} className="ml-1" />
 //       </a>
@@ -51,7 +51,7 @@
 //       >
 //         <div className="flex items-center">
 //           {sectionNumber && (
-//             <span className="text-2xl md:text-3xl font-bold text-blue-600 mr-3">
+//             <span className="text-2xl md:text-3xl font-bold text-[#e86f0c] mr-3">
 //               {sectionNumber}.
 //             </span>
 //           )}
@@ -283,7 +283,7 @@
 //               <span className="text-gray-700">Free + Paid resources</span>
 //             </div>
 //             <div className="flex items-center space-x-2">
-//               <span className="w-5 h-5 bg-blue-100 text-blue-800 rounded-full flex items-center justify-center">🎓</span>
+//               <span className="w-5 h-5 bg-orange-100 text-[#9f0909] rounded-full flex items-center justify-center">🎓</span>
 //               <span className="text-gray-700">Courses, guides, videos, podcasts</span>
 //             </div>
 //             <div className="flex items-center space-x-2">
@@ -359,7 +359,7 @@
 //         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
 //           <div className="mb-6">
 //             <div className="flex items-center mb-2">
-//               <span className="text-2xl md:text-3xl font-bold text-blue-600 mr-3">5.</span>
+//               <span className="text-2xl md:text-3xl font-bold text-[#e86f0c] mr-3">5.</span>
 //               <h2 className="text-2xl md:text-3xl font-bold text-gray-800">What&apos;s the Difference Between GPT, Gemini & Claude?</h2>
 //             </div>
 //             <p className="text-gray-600 mb-6 text-lg">Compare today&apos;s top AI models—and understand how they think, talk, and help you work smarter.</p>
@@ -384,7 +384,7 @@
 //       </div>
 //
 //       {/* Newsletter Section - Full Width Blue Background */}
-//       <div className="w-full bg-blue-600" id="newsletter-section">
+//       <div className="w-full bg-[#e86f0c]" id="newsletter-section">
 //         <NewsletterSection />
 //       </div>
 //

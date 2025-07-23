@@ -3,56 +3,61 @@
 const fs = require('fs');
 const path = require('path');
 
-// Target file with blog cards
-const blogFile = './frontend/src/app/components/marketing/BlogSection.js';
+// Target file with modal cards
+const modalFile = './frontend/src/app/components/tools/CardModal.js';
 
-function updateReadMoreToWhite() {
-  console.log('🎨 Updating "Read more" links to white...\n');
+function updateModalHeaderToBlack() {
+  console.log('🎨 Updating modal card headers from maroon to black...\n');
 
-  if (fs.existsSync(blogFile)) {
-    let content = fs.readFileSync(blogFile, 'utf8');
+  if (fs.existsSync(modalFile)) {
+    let content = fs.readFileSync(modalFile, 'utf8');
     let changes = 0;
 
-    // 1. Update Read more link color from orange to white
+    // 1. Update header text from maroon to black
+    // Pattern: text-[#9f0909] to text-black
+    const before1 = content;
     content = content.replace(
-      /text-\[#e86f0c\] hover:text-\[#e86f0c\]/g,
-      'text-white hover:text-gray-300'
+      /text-\[#9f0909\]/g,
+      'text-black'
     );
-    changes++;
+    if (before1 !== content) changes++;
 
-    // 2. Alternative pattern if using orange-400/300
+    // 2. Alternative pattern if using text-maroon-800
+    const before2 = content;
     content = content.replace(
-      /text-orange-400 hover:text-orange-300/g,
-      'text-white hover:text-gray-300'
+      /text-maroon-800/g,
+      'text-black'
     );
-    changes++;
+    if (before2 !== content) changes++;
 
-    // 3. If using blue-400/300 pattern (from old theme)
+    // 3. If still using blue-800 from old theme
+    const before3 = content;
     content = content.replace(
-      /text-blue-400 hover:text-blue-300/g,
-      'text-white hover:text-gray-300'
+      /text-blue-800/g,
+      'text-black'
     );
-    changes++;
+    if (before3 !== content) changes++;
 
-    // 4. Update any inline styles for Read more
+    // 4. Update any inline styles with maroon color
+    const before4 = content;
     content = content.replace(
-      /className="inline-flex items-center text-\[#e86f0c\]/g,
-      'className="inline-flex items-center text-white'
+      /color:\s*['"]#9f0909['"]/g,
+      'color: "#000000"'
     );
-    changes++;
+    if (before4 !== content) changes++;
 
-    fs.writeFileSync(blogFile, content, 'utf8');
-    console.log(`  ✓ Updated BlogSection.js (${changes} patterns changed)`);
+    fs.writeFileSync(modalFile, content, 'utf8');
+    console.log(`  ✓ Updated CardModal.js (${changes} patterns changed)`);
   } else {
-    console.log(`  ✗ File not found: ${blogFile}`);
+    console.log(`  ✗ File not found: ${modalFile}`);
   }
 
-  console.log('\n✅ "Read more" links updated!');
-  console.log('\n🎯 New styling:');
-  console.log('   - Default: white text');
-  console.log('   - Hover: light gray (gray-300)');
-  console.log('\n💡 This creates better contrast against the dark blog background!');
+  console.log('\n✅ Modal header text updated!');
+  console.log('\n🎯 Changes made:');
+  console.log('   - Modal header text: maroon → black');
+  console.log('   - Consistent with card headers');
+  console.log('\n💡 This maintains visual consistency across all card views!');
 }
 
 // Run the update
-updateReadMoreToWhite();
+updateModalHeaderToBlack();

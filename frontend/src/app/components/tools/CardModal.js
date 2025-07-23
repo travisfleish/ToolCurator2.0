@@ -109,7 +109,7 @@ const CardModal = ({
         >
           {/* Header with category */}
           <div className="w-full bg-orange-100 py-3 px-4 flex justify-between items-center sticky top-0">
-            <span className="font-bold text-[#9f0909] text-xl">
+            <span className="font-bold text-black text-xl">
               {category}
             </span>
 
